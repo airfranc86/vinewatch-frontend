@@ -7,20 +7,16 @@
       "use": "@vercel/static"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/auth/callback",
-      "dest": "/auth/callback.html"
+      "source": "/auth/callback",
+      "destination": "/auth/callback.html"
     },
     {
-      "src": "/(.*)",
-      "dest": "/public/$1"
+      "source": "/(.*)",
+      "destination": "/public/$1"
     }
   ],
-  "env": {
-    "VITE_SUPABASE_URL": "@supabase_url",
-    "VITE_SUPABASE_ANON_KEY": "@supabase_anon_key"
-  },
   "headers": [
     {
       "source": "/(.*)",
