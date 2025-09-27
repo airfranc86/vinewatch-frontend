@@ -57,30 +57,9 @@
                         <i class="fas fa-moon text-blue-400 hidden dark:block"></i>
                     </button>
                     
-                    <!-- Contenedor de autenticación -->
-                    <div id="auth-container" class="flex items-center space-x-2">
-                        <!-- Formulario de login (inicialmente visible) -->
-                        <div id="login-form" class="flex items-center space-x-2">
-                            <input 
-                                type="email" 
-                                id="email-input" 
-                                placeholder="Tu email" 
-                                class="px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-wine"
-                                style="background-color: var(--bg-secondary); color: var(--text-primary);"
-                            >
-                            <button 
-                                id="send-magic-link-btn" 
-                                class="px-4 py-2 bg-wine text-white text-sm rounded-lg hover:bg-wine-dark transition-colors"
-                            >
-                                <i class="fas fa-magic mr-1"></i>
-                                Magic Link
-                            </button>
-                        </div>
-                        
-                        <!-- Información del usuario (inicialmente oculta) -->
-                        <div id="user-info" class="hidden">
-                            <!-- Se llena dinámicamente -->
-                        </div>
+                    <!-- Información del usuario (inicialmente oculta) -->
+                    <div id="user-info" class="hidden">
+                        <!-- Se llena dinámicamente -->
                     </div>
                     
                     <!-- Botón de llamada a la acción -->
@@ -132,15 +111,30 @@
                         </p>
                     </div>
                     
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <button class="btn-wine text-lg px-8 py-4">
-                            <i class="fas fa-rocket mr-2"></i>
-                            Comenzar Ahora
-                        </button>
-                        <button class="btn-outline-wine text-lg px-8 py-4">
-                            <i class="fas fa-play mr-2"></i>
-                            Ver Demo
-                        </button>
+                    <!-- Contenedor de autenticación -->
+                    <div id="auth-container" class="flex flex-col sm:flex-row gap-4">
+                        <!-- Formulario de login (inicialmente visible) -->
+                        <div id="login-form" class="flex flex-col sm:flex-row gap-4 w-full">
+                            <input 
+                                type="email" 
+                                id="email-input" 
+                                placeholder="Ingresa tu email para probar" 
+                                class="flex-1 px-4 py-4 text-lg rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-wine"
+                                style="background-color: white; color: #374151;"
+                            >
+                            <button 
+                                id="send-magic-link-btn" 
+                                class="btn-wine text-lg px-8 py-4 whitespace-nowrap"
+                            >
+                                <i class="fas fa-magic mr-2"></i>
+                                Prueba unos minutos
+                            </button>
+                        </div>
+                        
+                        <!-- Información del usuario (inicialmente oculta) -->
+                        <div id="user-info" class="hidden w-full">
+                            <!-- Se llena dinámicamente -->
+                        </div>
                     </div>
                     
                     <!-- Estadísticas rápidas -->
