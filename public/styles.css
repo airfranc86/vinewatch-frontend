@@ -1,0 +1,263 @@
+/* ========================================
+   A&J Consulting - Estilos Principales
+   ======================================== */
+
+/* Variables CSS para colores y temas */
+:root {
+    --wine-primary: #722F37;
+    --wine-secondary: #8B3A42;
+    --wine-dark: #5A2329;
+    --wine-light: #A0525D;
+    --vineyard-green: #2D5016;
+    --vineyard-light: #4A7C59;
+    --gold-accent: #D4AF37;
+    --gold-light: #F4E4BC;
+    --cream: #F5F5DC;
+    --charcoal: #2C2C2C;
+    
+    /* Light mode colors */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --border-color: #e5e7eb;
+    --card-bg: #ffffff;
+    --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+    --bg-primary: #111827;
+    --bg-secondary: #1f2937;
+    --text-primary: #f9fafb;
+    --text-secondary: #d1d5db;
+    --text-muted: #9ca3af;
+    --border-color: #374151;
+    --card-bg: #1f2937;
+    --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Tipografías */
+.font-display { 
+    font-family: "Playfair Display", serif; 
+}
+
+.font-body { 
+    font-family: "Inter", sans-serif; 
+}
+
+/* Gradientes personalizados */
+.bg-wine-gradient {
+    background: linear-gradient(135deg, var(--wine-primary) 0%, var(--wine-dark) 100%);
+}
+
+.bg-vineyard-gradient {
+    background: linear-gradient(135deg, var(--vineyard-green) 0%, var(--vineyard-light) 100%);
+}
+
+.bg-gold-gradient {
+    background: linear-gradient(135deg, var(--gold-accent) 0%, #B8860B 100%);
+}
+
+/* Colores de texto */
+.text-wine { color: var(--wine-primary); }
+.text-gold { color: var(--gold-accent); }
+.text-vineyard { color: var(--vineyard-green); }
+
+/* Bordes */
+.border-wine { border-color: var(--wine-primary); }
+.border-gold { border-color: var(--gold-accent); }
+
+/* Hover effects */
+.hover-wine:hover { color: var(--wine-primary); }
+.hover-gold:hover { color: var(--gold-accent); }
+
+/* Fondos */
+.bg-wine { background-color: var(--wine-primary); }
+.bg-gold { background-color: var(--gold-accent); }
+.bg-vineyard { background-color: var(--vineyard-green); }
+
+/* Sombras personalizadas */
+.wine-shadow {
+    box-shadow: 0 10px 25px rgba(114, 47, 55, 0.15);
+}
+
+.gold-shadow {
+    box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15);
+}
+
+.vineyard-shadow {
+    box-shadow: 0 10px 25px rgba(45, 80, 22, 0.15);
+}
+
+/* Patrones de fondo */
+.hero-pattern {
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(114, 47, 55, 0.1) 0%, transparent 50%);
+}
+
+/* Divisores de sección */
+.section-divider {
+    background: linear-gradient(90deg, transparent 0%, var(--gold-accent) 50%, transparent 100%);
+    height: 2px;
+}
+
+/* Efectos de tarjetas */
+.card-hover {
+    transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Botones personalizados */
+.btn-wine {
+    background: linear-gradient(135deg, var(--wine-primary) 0%, var(--wine-dark) 100%);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-wine:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(114, 47, 55, 0.3);
+}
+
+.btn-gold {
+    background: linear-gradient(135deg, var(--gold-accent) 0%, #B8860B 100%);
+    color: var(--charcoal);
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+}
+
+.btn-outline-wine {
+    background: transparent;
+    color: var(--wine-primary);
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid var(--wine-primary);
+    cursor: pointer;
+}
+
+.btn-outline-wine:hover {
+    background: var(--wine-primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Animaciones */
+.animate-fade-in {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--wine-primary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--wine-dark);
+}
+
+/* Swiper personalizado para VineWatch */
+.vinewatch-swiper {
+    --swiper-navigation-color: var(--wine-primary);
+    --swiper-pagination-color: var(--wine-primary);
+    --swiper-theme-color: var(--wine-primary);
+}
+
+.vinewatch-swiper .swiper-slide {
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vinewatch-swiper .swiper-button-next,
+.vinewatch-swiper .swiper-button-prev {
+    color: var(--wine-primary);
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.vinewatch-swiper .swiper-button-next:after,
+.vinewatch-swiper .swiper-button-prev:after {
+    font-size: 18px;
+}
+
+.vinewatch-swiper .swiper-pagination-bullet {
+    background: var(--wine-primary);
+    opacity: 0.3;
+}
+
+.vinewatch-swiper .swiper-pagination-bullet-active {
+    opacity: 1;
+}
+
+/* Responsive utilities */
+@media (max-width: 640px) {
+    .hero-pattern {
+        background-image: none;
+    }
+    
+    .card-hover:hover {
+        transform: none;
+    }
+}
+
+/* Print styles */
+@media print {
+    .card-hover:hover {
+        transform: none;
+        box-shadow: none;
+    }
+    
+    .btn-wine,
+    .btn-gold,
+    .btn-outline-wine {
+        background: none !important;
+        color: var(--text-primary) !important;
+        border: 1px solid var(--text-primary) !important;
+    }
+}
