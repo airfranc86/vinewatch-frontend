@@ -1,0 +1,83 @@
+
+[     UTC     ] Logs for vinewatch.streamlit.app/
+────────────────────────────────────────────────────────────────────────────────────────
+[19:57:22] 🚀 Starting up repository: 'vinewatch-backend', branch: 'main', main module: 'streamlit_app.py'
+[19:57:22] 🐙 Cloning repository...
+[19:57:24] 🐙 Cloning into '/mount/src/vinewatch-backend'...
+
+[19:57:24] 🐙 Cloned repository!
+[19:57:24] 🐙 Pulling code changes from Github...
+[19:57:25] 📦 Processing dependencies...
+[19:57:25] 📦 Apt dependencies were installed from /mount/src/vinewatch-backend/packages.txt using apt-get.
+Hit:1 http://deb.debian.org/debian bookworm InRelease
+Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [48.0 kB]
+Get:4 https://packages.microsoft.com/debian/11/prod bullseye InRelease [3650 B]
+Get:5 http://deb.debian.org/debian-security bookworm-security/main amd64 Packages [280 kB]
+Get:6 https://packages.microsoft.com/debian/11/prod bullseye/main arm64 Packages [54.3 kB]
+Get:7 https://packages.microsoft.com/debian/11/prod bullseye/main amd64 Packages [208 kB]
+Fetched 649 kB in 0s (1301 kB/s)
+Reading package lists...[2025-09-27 19:57:26.584818] 
+Reading package lists...[2025-09-27 19:57:27.202060] 
+Building dependency tree...[2025-09-27 19:57:27.383796] 
+Reading state information...[2025-09-27 19:57:27.384116] 
+E: Unable to locate package #
+E: Unable to locate package Archivo
+E: Unable to locate package requerido
+E: Unable to locate package por
+E: Unable to locate package Streamlit
+E: Unable to locate package Cloud
+E: Unable to locate package para
+E: Unable to locate package instalar
+E: Unable to locate package dependencias
+E: Unable to locate package del
+E: Unable to locate package sistema[2025-09-27 19:57:27.396668] 
+E: Unable to locate package #
+E: Unable to locate package No
+E: Unable to locate package es
+E: Unable to locate package necesario
+E: Unable to locate package para
+E: Unable to locate package este
+E: Unable to locate package proyecto,
+E: Unable to locate package pero
+E: Unable to locate package Streamlit
+E: Unable to locate package Cloud
+E: Unable to locate package lo
+E: Unable to locate package requiere
+[19:57:27] ❗️ installer returned a non-zero exit code
+[19:57:27] ❗️ Error during processing dependencies! Please fix the error and push an update, or try restarting the app.
+[19:58:21] 🐙 Pulling code changes from Github...
+[19:58:22] 📦 Processing dependencies...
+[19:58:22] 📦 Apt dependencies were installed from /mount/src/vinewatch-backend/packages.txt using apt-get.
+Hit:1 http://deb.debian.org/debian bookworm InRelease
+Hit:2 http://deb.debian.org/debian bookworm-updates InRelease
+Hit:3 http://deb.debian.org/debian-security bookworm-security InRelease
+Hit:4 https://packages.microsoft.com/debian/11/prod bullseye InRelease
+Reading package lists...[2025-09-27 19:58:23.549944] 
+Reading package lists...[2025-09-27 19:58:24.151291] 
+Building dependency tree...[2025-09-27 19:58:24.347369] 
+Reading state information...[2025-09-27 19:58:24.347666] 
+E: Unable to locate package #
+E: Unable to locate package Archivo
+E: Unable to locate package requerido
+E: Unable to locate package por
+E: Unable to locate package Streamlit
+E: Unable to locate package Cloud
+E: Unable to locate package para
+E: Unable to locate package instalar
+E: Unable to locate package dependencias
+E[2025-09-27 19:58:24.361729] : Unable to locate package del
+E: Unable to locate package sistema
+E: Unable to locate package #
+E: Unable to locate package No
+E: Unable to locate package es
+E: Unable to locate package necesario
+E: Unable to locate package para
+E: Unable to locate package este
+E: Unable to locate package proyecto,
+E: Unable to locate package pero
+E: Unable to locate package Streamlit
+E: Unable to locate package Cloud
+E: Unable to locate package lo
+E: Unable to locate package requiere
+[19:58:24] ❗️ installer returned a non-zero exit code
