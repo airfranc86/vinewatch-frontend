@@ -184,36 +184,41 @@ class AuthManager {
     if (!authContainer) return
 
     if (this.isAuthenticated && this.user) {
-      // Usuario autenticado
+      // Usuario autenticado - mostrar en el hero
       if (userInfo) {
         userInfo.innerHTML = `
-          <div class="flex items-center space-x-3">
-            <div class="w-8 h-8 bg-wine-gradient rounded-full flex items-center justify-center">
-              <i class="fas fa-user text-white text-sm"></i>
+          <div class="flex flex-col sm:flex-row gap-4 w-full">
+            <div class="flex-1 bg-white rounded-lg p-4 shadow-lg">
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-wine-gradient rounded-full flex items-center justify-center">
+                  <i class="fas fa-user text-white"></i>
+                </div>
+                <div>
+                  <p class="font-medium text-gray-900">¡Bienvenido!</p>
+                  <p class="text-sm text-gray-600">${this.user.email}</p>
+                </div>
+              </div>
             </div>
-            <div>
-              <p class="text-sm font-medium" style="color: var(--text-primary);">${this.user.email}</p>
-              <p class="text-xs" style="color: var(--text-secondary);">Sesión activa</p>
-            </div>
-            <button onclick="authManager.signOut()" class="text-xs px-3 py-1 rounded-full transition-colors duration-300" style="background-color: var(--bg-secondary); color: var(--text-secondary);">
+            <button onclick="authManager.signOut()" class="btn-outline-wine text-lg px-8 py-4 whitespace-nowrap">
+              <i class="fas fa-sign-out-alt mr-2"></i>
               Cerrar Sesión
             </button>
           </div>
         `
-        userInfo.style.display = 'block'
+        userInfo.classList.remove('hidden')
       }
       
       if (loginForm) {
-        loginForm.style.display = 'none'
+        loginForm.classList.add('hidden')
       }
     } else {
       // Usuario no autenticado
       if (userInfo) {
-        userInfo.style.display = 'none'
+        userInfo.classList.add('hidden')
       }
       
       if (loginForm) {
-        loginForm.style.display = 'block'
+        loginForm.classList.remove('hidden')
       }
     }
   }
