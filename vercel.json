@@ -11,10 +11,6 @@
     {
       "source": "/auth/callback",
       "destination": "/auth/callback.html"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/public/$1"
     }
   ],
   "headers": [
