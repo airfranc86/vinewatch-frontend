@@ -100,9 +100,9 @@
                 // Cargar Supabase
                 const { createClient } = await import('https://cdn.skypack.dev/@supabase/supabase-js@2')
                 
-                // Configuración - tus credenciales reales
-                const supabaseUrl = 'https://agesojhoiemujyokbyin.supabase.co'
-                const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFnZXNvamhvaWVtdWp5b2tieWluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4NTczMTEsImV4cCI6MjA3NDQzMzMxMX0.03CwWaoXbWJINCE7nzLV4dwSJhvlSu9kC8S-V5VCXJo'
+                // Configuración - usar variables de entorno o fallback
+                const supabaseUrl = window.VITE_SUPABASE_URL || 'https://agesojhoiemujyokbyin.supabase.co'
+                const supabaseKey = window.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFnZXNvamhvaWVtdWp5b2tieWluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4NTczMTEsImV4cCI6MjA3NDQzMzMxMX0.03CwWaoXbWJINCE7nzLV4dwSJhvlSu9kC8S-V5VCXJo'
                 
                 const supabase = createClient(supabaseUrl, supabaseKey)
                 

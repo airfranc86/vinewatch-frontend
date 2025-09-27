@@ -15,8 +15,8 @@ class AuthManager {
       const { createClient } = await import('https://cdn.skypack.dev/@supabase/supabase-js@2')
       
       // Configuración para Vercel - usar variables de entorno
-      const supabaseUrl = 'https://agesojhoiemujyokbyin.supabase.co' // Tu URL real
-      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFnZXNvamhvaWVtdWp5b2tieWluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4NTczMTEsImV4cCI6MjA3NDQzMzMxMX0.03CwWaoXbWJINCE7nzLV4dwSJhvlSu9kC8S-V5VCXJo' // Tu anon key real
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://agesojhoiemujyokbyin.supabase.co'
+      const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFnZXNvamhvaWVtdWp5b2tieWluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4NTczMTEsImV4cCI6MjA3NDQzMzMxMX0.03CwWaoXbWJINCE7nzLV4dwSJhvlSu9kC8S-V5VCXJo'
       
       this.supabase = createClient(supabaseUrl, supabaseKey, {
         auth: {
