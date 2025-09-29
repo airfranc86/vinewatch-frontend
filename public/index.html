@@ -1,32 +1,39 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A&J Consulting - Soluciones Tecnológicas Vitivinícolas</title>
-    <meta name="description" content="Especializados en viticultura de precisión y tecnología satelital. Transformamos datos en decisiones inteligentes para el sector vitivinícola argentino.">
-    
+    <meta name="description"
+        content="Especializados en viticultura de precisión y tecnología satelital. Transformamos datos en decisiones inteligentes para el sector vitivinícola argentino.">
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-    
+
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="font-body transition-colors duration-300" style="background-color: var(--bg-primary); color: var(--text-primary);">
-    
+
+<body class="font-body transition-colors duration-300"
+    style="background-color: var(--bg-primary); color: var(--text-primary);">
+
     <!-- =======================
          NAVIGATION PRINCIPAL
          ======================= -->
-    <nav class="sticky top-0 z-50 transition-colors duration-300" style="background-color: var(--card-bg); box-shadow: var(--shadow);">
+    <nav class="sticky top-0 z-50 transition-colors duration-300"
+        style="background-color: var(--card-bg); box-shadow: var(--shadow);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <!-- Logo y nombre de empresa -->
@@ -36,32 +43,40 @@
                     </div>
                     <div>
                         <h1 class="text-2xl font-display font-bold text-wine">A&J Consulting</h1>
-                        <p class="text-xs transition-colors duration-300" style="color: var(--text-muted);">Viticultura de Precisión</p>
+                        <p class="text-xs transition-colors duration-300" style="color: var(--text-muted);">Viticultura
+                            de Precisión</p>
                     </div>
                 </div>
-                
+
                 <!-- Enlaces de navegación -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#inicio" class="font-medium transition-colors duration-300 hover-wine" style="color: var(--text-primary);">Inicio</a>
-                    <a href="#servicios" class="font-medium transition-colors duration-300 hover-wine" style="color: var(--text-primary);">Servicios</a>
-                    <a href="#productos" class="font-medium transition-colors duration-300 hover-wine" style="color: var(--text-primary);">Productos</a>
-                    <a href="#nosotros" class="font-medium transition-colors duration-300 hover-wine" style="color: var(--text-primary);">Nosotros</a>
-                    <a href="#contacto" class="font-medium transition-colors duration-300 hover-wine" style="color: var(--text-primary);">Contacto</a>
+                    <a href="#inicio" class="font-medium transition-colors duration-300 hover-wine"
+                        style="color: var(--text-primary);">Inicio</a>
+                    <a href="#servicios" class="font-medium transition-colors duration-300 hover-wine"
+                        style="color: var(--text-primary);">Servicios</a>
+                    <a href="#productos" class="font-medium transition-colors duration-300 hover-wine"
+                        style="color: var(--text-primary);">Productos</a>
+                    <a href="#nosotros" class="font-medium transition-colors duration-300 hover-wine"
+                        style="color: var(--text-primary);">Nosotros</a>
+                    <a href="#contacto" class="font-medium transition-colors duration-300 hover-wine"
+                        style="color: var(--text-primary);">Contacto</a>
                 </div>
-                
+
                 <!-- Botón de tema y CTA -->
                 <div class="flex items-center space-x-4">
                     <!-- Botón para alternar tema claro/oscuro -->
-                    <button id="theme-toggle" class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors duration-300 hover:bg-gray-100 dark:hover:bg-gray-700" style="background-color: var(--bg-secondary);">
+                    <button id="theme-toggle"
+                        class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors duration-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        style="background-color: var(--bg-secondary);">
                         <i class="fas fa-sun text-yellow-500 dark:hidden"></i>
                         <i class="fas fa-moon text-blue-400 hidden dark:block"></i>
                     </button>
-                    
+
                     <!-- Información del usuario (inicialmente oculta) -->
                     <div id="user-info" class="hidden">
                         <!-- Se llena dinámicamente -->
                     </div>
-                    
+
                     <!-- Botón de llamada a la acción -->
                     <div class="hidden md:block">
                         <button class="btn-wine">Consultar Ahora</button>
@@ -71,27 +86,34 @@
         </div>
         <!-- Menú móvil (solo visible en pantallas pequeñas) -->
         <div class="md:hidden">
-            <button id="mobile-menu-toggle" class="transition-colors duration-300 hover-wine" style="color: var(--text-primary);">
+            <button id="mobile-menu-toggle" class="transition-colors duration-300 hover-wine"
+                style="color: var(--text-primary);">
                 <i class="fas fa-bars text-xl"></i>
             </button>
         </div>
-    </div>
-    
-    <!-- Menú móvil desplegable -->
-    <div id="mobile-menu" class="hidden md:hidden transition-colors duration-300" style="background-color: var(--card-bg); box-shadow: var(--shadow);">
-        <div class="px-4 py-2 space-y-2">
-            <a href="#inicio" class="block py-2 font-medium transition-colors duration-300 hover-wine" style="color: var(--text-primary);">Inicio</a>
-            <a href="#servicios" class="block py-2 font-medium transition-colors duration-300 hover-wine" style="color: var(--text-primary);">Servicios</a>
-            <a href="#productos" class="block py-2 font-medium transition-colors duration-300 hover-wine" style="color: var(--text-primary);">Productos</a>
-            <a href="#nosotros" class="block py-2 font-medium transition-colors duration-300 hover-wine" style="color: var(--text-primary);">Nosotros</a>
-            <a href="#contacto" class="block py-2 font-medium transition-colors duration-300 hover-wine" style="color: var(--text-primary);">Contacto</a>
-            <div class="pt-2">
-                <button class="btn-wine w-full">Consultar Ahora</button>
+        </div>
+
+        <!-- Menú móvil desplegable -->
+        <div id="mobile-menu" class="hidden md:hidden transition-colors duration-300"
+            style="background-color: var(--card-bg); box-shadow: var(--shadow);">
+            <div class="px-4 py-2 space-y-2">
+                <a href="#inicio" class="block py-2 font-medium transition-colors duration-300 hover-wine"
+                    style="color: var(--text-primary);">Inicio</a>
+                <a href="#servicios" class="block py-2 font-medium transition-colors duration-300 hover-wine"
+                    style="color: var(--text-primary);">Servicios</a>
+                <a href="#productos" class="block py-2 font-medium transition-colors duration-300 hover-wine"
+                    style="color: var(--text-primary);">Productos</a>
+                <a href="#nosotros" class="block py-2 font-medium transition-colors duration-300 hover-wine"
+                    style="color: var(--text-primary);">Nosotros</a>
+                <a href="#contacto" class="block py-2 font-medium transition-colors duration-300 hover-wine"
+                    style="color: var(--text-primary);">Contacto</a>
+                <div class="pt-2">
+                    <button class="btn-wine w-full">Consultar Ahora</button>
+                </div>
             </div>
         </div>
-    </div>
     </nav>
-    
+
     <!-- =======================
          SECCIÓN HERO
          ======================= -->
@@ -103,60 +125,61 @@
                 <div class="space-y-8">
                     <div class="space-y-4">
                         <h2 class="text-5xl lg:text-6xl font-display font-bold text-charcoal leading-tight">
-                            Tecnología de <span class="text-wine">Precisión</span> para la <span class="text-gold">Viticultura</span>
+                            Tecnología de <span class="text-wine">Precisión</span> para la <span
+                                class="text-gold">Viticultura</span>
                         </h2>
                         <p class="text-xl text-gray-600 leading-relaxed">
-                            Transformamos datos satelitales en decisiones inteligentes para optimizar 
+                            Transformamos datos satelitales en decisiones inteligentes para optimizar
                             la producción vitivinícola argentina con tecnología de vanguardia.
                         </p>
                     </div>
-                    
+
                     <!-- Contenedor de autenticación -->
                     <div id="auth-container" class="flex flex-col sm:flex-row gap-4">
                         <!-- Formulario de login (inicialmente visible) -->
                         <div id="login-form" class="flex flex-col sm:flex-row gap-4 w-full">
-                            <input 
-                                type="email" 
-                                id="email-input" 
-                                placeholder="Ingresa tu email para probar" 
+                            <input type="email" id="email-input" placeholder="Ingresa tu email para probar"
                                 class="flex-1 px-4 py-4 text-lg rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-wine"
-                                style="background-color: white; color: #374151;"
-                            >
-                            <button 
-                                id="send-magic-link-btn" 
-                                class="btn-wine text-lg px-8 py-4 whitespace-nowrap"
-                            >
+                                style="background-color: white; color: #374151;">
+                            <button id="send-magic-link-btn" class="btn-wine text-lg px-8 py-4 whitespace-nowrap">
                                 <i class="fas fa-magic mr-2"></i>
                                 Prueba unos minutos
                             </button>
                         </div>
-                        
+
                         <!-- Información del usuario (inicialmente oculta) -->
                         <div id="user-info" class="hidden w-full">
                             <!-- Se llena dinámicamente -->
                         </div>
                     </div>
-                    
+
                     <!-- Estadísticas rápidas -->
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-8 pt-8">
-                        <div class="text-center p-4 rounded-lg transition-colors duration-300" style="background-color: var(--bg-secondary);">
+                        <div class="text-center p-4 rounded-lg transition-colors duration-300"
+                            style="background-color: var(--bg-secondary);">
                             <div class="text-2xl sm:text-3xl font-bold text-wine">500+</div>
-                            <div class="text-xs sm:text-sm transition-colors duration-300" style="color: var(--text-secondary);">Hectáreas Monitoreadas</div>
+                            <div class="text-xs sm:text-sm transition-colors duration-300"
+                                style="color: var(--text-secondary);">Hectáreas Monitoreadas</div>
                         </div>
-                        <div class="text-center p-4 rounded-lg transition-colors duration-300" style="background-color: var(--bg-secondary);">
+                        <div class="text-center p-4 rounded-lg transition-colors duration-300"
+                            style="background-color: var(--bg-secondary);">
                             <div class="text-2xl sm:text-3xl font-bold text-gold">98%</div>
-                            <div class="text-xs sm:text-sm transition-colors duration-300" style="color: var(--text-secondary);">Precisión en Predicciones</div>
+                            <div class="text-xs sm:text-sm transition-colors duration-300"
+                                style="color: var(--text-secondary);">Precisión en Predicciones</div>
                         </div>
-                        <div class="text-center p-4 rounded-lg transition-colors duration-300" style="background-color: var(--bg-secondary);">
+                        <div class="text-center p-4 rounded-lg transition-colors duration-300"
+                            style="background-color: var(--bg-secondary);">
                             <div class="text-2xl sm:text-3xl font-bold text-vineyard">24/7</div>
-                            <div class="text-xs sm:text-sm transition-colors duration-300" style="color: var(--text-secondary);">Monitoreo Continuo</div>
+                            <div class="text-xs sm:text-sm transition-colors duration-300"
+                                style="color: var(--text-secondary);">Monitoreo Continuo</div>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Dashboard simulado en el hero -->
                 <div class="relative mt-8 lg:mt-0">
-                    <div class="transition-colors duration-300 rounded-2xl p-4 sm:p-6 lg:p-8 wine-shadow" style="background-color: var(--card-bg);">
+                    <div class="transition-colors duration-300 rounded-2xl p-4 sm:p-6 lg:p-8 wine-shadow"
+                        style="background-color: var(--card-bg);">
                         <div class="space-y-6">
                             <div class="flex items-center justify-between">
                                 <h3 class="text-xl font-semibold text-wine">VineWatch Dashboard</h3>
@@ -166,10 +189,12 @@
                                         <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
                                         <div class="w-3 h-3 bg-green-400 rounded-full"></div>
                                     </div>
-                                    <span class="text-xs px-2 py-1 rounded-full" style="background-color: var(--bg-secondary); color: var(--text-secondary);">En Vivo</span>
+                                    <span class="text-xs px-2 py-1 rounded-full"
+                                        style="background-color: var(--bg-secondary); color: var(--text-secondary);">En
+                                        Vivo</span>
                                 </div>
                             </div>
-                            
+
                             <!-- Métricas y gráficos del dashboard -->
                             <div class="space-y-4">
                                 <!-- Barra de progreso de salud del viñedo -->
@@ -178,23 +203,30 @@
                                         <span>Salud General del Viñedo</span>
                                         <span class="font-semibold text-wine">85%</span>
                                     </div>
-                                    <div class="bg-gradient-to-r from-wine to-wine-dark h-3 rounded-full relative overflow-hidden">
-                                        <div class="absolute inset-0 bg-gradient-to-r from-wine to-wine-dark rounded-full" style="width: 85%;"></div>
-                                        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-30 animate-pulse"></div>
+                                    <div
+                                        class="bg-gradient-to-r from-wine to-wine-dark h-3 rounded-full relative overflow-hidden">
+                                        <div class="absolute inset-0 bg-gradient-to-r from-wine to-wine-dark rounded-full"
+                                            style="width: 85%;"></div>
+                                        <div
+                                            class="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-30 animate-pulse">
+                                        </div>
                                     </div>
                                 </div>
-                                
+
                                 <!-- Métricas principales -->
                                 <div class="grid grid-cols-2 gap-4">
-                                    <div class="p-4 rounded-lg transition-colors duration-300" style="background-color: var(--bg-secondary);">
+                                    <div class="p-4 rounded-lg transition-colors duration-300"
+                                        style="background-color: var(--bg-secondary);">
                                         <div class="flex items-center justify-between mb-2">
-                                            <div class="text-sm" style="color: var(--text-secondary);">Humedad del Suelo</div>
+                                            <div class="text-sm" style="color: var(--text-secondary);">Humedad del Suelo
+                                            </div>
                                             <i class="fas fa-tint text-wine"></i>
                                         </div>
                                         <div class="text-2xl font-bold text-wine" data-metric>68%</div>
                                         <div class="text-xs" style="color: var(--text-muted);">Óptimo</div>
                                     </div>
-                                    <div class="p-4 rounded-lg transition-colors duration-300" style="background-color: var(--bg-secondary);">
+                                    <div class="p-4 rounded-lg transition-colors duration-300"
+                                        style="background-color: var(--bg-secondary);">
                                         <div class="flex items-center justify-between mb-2">
                                             <div class="text-sm" style="color: var(--text-secondary);">Índice NDVI</div>
                                             <i class="fas fa-leaf text-vineyard"></i>
@@ -203,36 +235,50 @@
                                         <div class="text-xs" style="color: var(--text-muted);">Excelente</div>
                                     </div>
                                 </div>
-                                
+
                                 <!-- Métricas adicionales -->
                                 <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
-                                    <div class="text-center p-2 sm:p-3 rounded-lg transition-colors duration-300" style="background-color: var(--bg-secondary);">
+                                    <div class="text-center p-2 sm:p-3 rounded-lg transition-colors duration-300"
+                                        style="background-color: var(--bg-secondary);">
                                         <div class="text-sm sm:text-lg font-bold text-gold" data-metric>23°C</div>
                                         <div class="text-xs" style="color: var(--text-muted);">Temperatura</div>
                                     </div>
-                                    <div class="text-center p-2 sm:p-3 rounded-lg transition-colors duration-300" style="background-color: var(--bg-secondary);">
+                                    <div class="text-center p-2 sm:p-3 rounded-lg transition-colors duration-300"
+                                        style="background-color: var(--bg-secondary);">
                                         <div class="text-sm sm:text-lg font-bold text-wine" data-metric>12km/h</div>
                                         <div class="text-xs" style="color: var(--text-muted);">Viento</div>
                                     </div>
-                                    <div class="text-center p-2 sm:p-3 rounded-lg transition-colors duration-300 col-span-2 sm:col-span-1" style="background-color: var(--bg-secondary);">
+                                    <div class="text-center p-2 sm:p-3 rounded-lg transition-colors duration-300 col-span-2 sm:col-span-1"
+                                        style="background-color: var(--bg-secondary);">
                                         <div class="text-sm sm:text-lg font-bold text-vineyard" data-metric>45%</div>
                                         <div class="text-xs" style="color: var(--text-muted);">Humedad</div>
                                     </div>
                                 </div>
-                                
+
                                 <!-- Gráfico NDVI simulado -->
-                                <div class="bg-gradient-to-r from-vineyard-green to-vineyard-light h-32 rounded-lg relative overflow-hidden">
-                                    <div class="absolute inset-0 bg-gradient-to-br from-transparent via-white to-transparent opacity-20"></div>
+                                <div
+                                    class="bg-gradient-to-r from-vineyard-green to-vineyard-light h-32 rounded-lg relative overflow-hidden">
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-br from-transparent via-white to-transparent opacity-20">
+                                    </div>
                                     <div class="absolute inset-0 p-4">
                                         <div class="flex items-end justify-between h-full">
-                                            <div class="bg-white bg-opacity-30 rounded-t" style="height: 60%; width: 8px;"></div>
-                                            <div class="bg-white bg-opacity-40 rounded-t" style="height: 80%; width: 8px;"></div>
-                                            <div class="bg-white bg-opacity-50 rounded-t" style="height: 45%; width: 8px;"></div>
-                                            <div class="bg-white bg-opacity-60 rounded-t" style="height: 90%; width: 8px;"></div>
-                                            <div class="bg-white bg-opacity-40 rounded-t" style="height: 70%; width: 8px;"></div>
-                                            <div class="bg-white bg-opacity-50 rounded-t" style="height: 85%; width: 8px;"></div>
-                                            <div class="bg-white bg-opacity-45 rounded-t" style="height: 55%; width: 8px;"></div>
-                                            <div class="bg-white bg-opacity-70 rounded-t" style="height: 95%; width: 8px;"></div>
+                                            <div class="bg-white bg-opacity-30 rounded-t"
+                                                style="height: 60%; width: 8px;"></div>
+                                            <div class="bg-white bg-opacity-40 rounded-t"
+                                                style="height: 80%; width: 8px;"></div>
+                                            <div class="bg-white bg-opacity-50 rounded-t"
+                                                style="height: 45%; width: 8px;"></div>
+                                            <div class="bg-white bg-opacity-60 rounded-t"
+                                                style="height: 90%; width: 8px;"></div>
+                                            <div class="bg-white bg-opacity-40 rounded-t"
+                                                style="height: 70%; width: 8px;"></div>
+                                            <div class="bg-white bg-opacity-50 rounded-t"
+                                                style="height: 85%; width: 8px;"></div>
+                                            <div class="bg-white bg-opacity-45 rounded-t"
+                                                style="height: 55%; width: 8px;"></div>
+                                            <div class="bg-white bg-opacity-70 rounded-t"
+                                                style="height: 95%; width: 8px;"></div>
                                         </div>
                                     </div>
                                     <div class="absolute bottom-2 left-2 right-2 text-center text-white">
@@ -240,14 +286,18 @@
                                         <div class="text-xs opacity-90">Actualizado: 2 min</div>
                                     </div>
                                 </div>
-                                
+
                                 <!-- Botones de acción del dashboard -->
                                 <div class="flex space-x-2">
-                                    <button class="flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-colors duration-300" style="background-color: var(--wine-primary); color: white;">
+                                    <button
+                                        class="flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-colors duration-300"
+                                        style="background-color: var(--wine-primary); color: white;">
                                         <i class="fas fa-chart-line mr-2"></i>
                                         Ver Reporte
                                     </button>
-                                    <button class="flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-colors duration-300 border" style="border-color: var(--wine-primary); color: var(--wine-primary);">
+                                    <button
+                                        class="flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-colors duration-300 border"
+                                        style="border-color: var(--wine-primary); color: var(--wine-primary);">
                                         <i class="fas fa-download mr-2"></i>
                                         Exportar
                                     </button>
@@ -255,40 +305,44 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Elementos flotantes decorativos -->
-                    <div class="absolute -top-4 -right-4 w-20 h-20 bg-gold rounded-full flex items-center justify-center gold-shadow animate-bounce">
+                    <div
+                        class="absolute -top-4 -right-4 w-20 h-20 bg-gold rounded-full flex items-center justify-center gold-shadow animate-bounce">
                         <i class="fas fa-chart-line text-white text-2xl"></i>
                     </div>
-                    <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-vineyard rounded-full flex items-center justify-center vineyard-shadow animate-pulse">
+                    <div
+                        class="absolute -bottom-4 -left-4 w-16 h-16 bg-vineyard rounded-full flex items-center justify-center vineyard-shadow animate-pulse">
                         <i class="fas fa-leaf text-white text-xl"></i>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
+
     <!-- =======================
          SECCIÓN SWIPER DE MÉTRICAS
          ======================= -->
     <section class="py-20 transition-colors duration-300" style="background-color: var(--bg-secondary);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-4xl font-display font-bold mb-4 transition-colors duration-300" style="color: var(--text-primary);">
+                <h2 class="text-4xl font-display font-bold mb-4 transition-colors duration-300"
+                    style="color: var(--text-primary);">
                     Métricas en Tiempo Real
                 </h2>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto">
                     Monitoreo interactivo de datos vitivinícolas con visualizaciones dinámicas
                 </p>
             </div>
-            
+
             <!-- Swiper para métricas -->
             <div class="vinewatch-swiper metrics-swiper swiper">
                 <div class="swiper-wrapper">
                     <!-- Slide NDVI Promedio -->
                     <div class="swiper-slide">
                         <div class="bg-white rounded-2xl p-8 shadow-lg wine-shadow text-center">
-                            <div class="w-16 h-16 bg-wine-gradient rounded-full flex items-center justify-center mx-auto mb-4">
+                            <div
+                                class="w-16 h-16 bg-wine-gradient rounded-full flex items-center justify-center mx-auto mb-4">
                                 <i class="fas fa-satellite text-white text-2xl"></i>
                             </div>
                             <h3 class="text-2xl font-bold text-wine mb-2">NDVI Promedio</h3>
@@ -308,7 +362,8 @@
                     <!-- Slide GDD Acumulados -->
                     <div class="swiper-slide">
                         <div class="bg-white rounded-2xl p-8 shadow-lg vineyard-shadow text-center">
-                            <div class="w-16 h-16 bg-vineyard-gradient rounded-full flex items-center justify-center mx-auto mb-4">
+                            <div
+                                class="w-16 h-16 bg-vineyard-gradient rounded-full flex items-center justify-center mx-auto mb-4">
                                 <i class="fas fa-thermometer-half text-white text-2xl"></i>
                             </div>
                             <h3 class="text-2xl font-bold text-vineyard mb-2">GDD Acumulados</h3>
@@ -317,7 +372,9 @@
                             <!-- Progreso circular simulado -->
                             <div class="relative w-16 h-16 mx-auto mb-2">
                                 <div class="absolute inset-0 rounded-full border-4 border-gray-200"></div>
-                                <div class="absolute inset-0 rounded-full border-4 border-vineyard border-t-0 border-r-0 transform -rotate-45"></div>
+                                <div
+                                    class="absolute inset-0 rounded-full border-4 border-vineyard border-t-0 border-r-0 transform -rotate-45">
+                                </div>
                                 <div class="absolute inset-0 flex items-center justify-center">
                                     <span class="text-xs font-bold text-vineyard">75%</span>
                                 </div>
@@ -328,7 +385,8 @@
                     <!-- Slide Humedad del Suelo -->
                     <div class="swiper-slide">
                         <div class="bg-white rounded-2xl p-8 shadow-lg gold-shadow text-center">
-                            <div class="w-16 h-16 bg-gold-gradient rounded-full flex items-center justify-center mx-auto mb-4">
+                            <div
+                                class="w-16 h-16 bg-gold-gradient rounded-full flex items-center justify-center mx-auto mb-4">
                                 <i class="fas fa-tint text-white text-2xl"></i>
                             </div>
                             <h3 class="text-2xl font-bold text-gold mb-2">Humedad del Suelo</h3>
@@ -348,7 +406,8 @@
                     <!-- Slide Rendimiento Estimado -->
                     <div class="swiper-slide">
                         <div class="bg-white rounded-2xl p-8 shadow-lg wine-shadow text-center">
-                            <div class="w-16 h-16 bg-wine-gradient rounded-full flex items-center justify-center mx-auto mb-4">
+                            <div
+                                class="w-16 h-16 bg-wine-gradient rounded-full flex items-center justify-center mx-auto mb-4">
                                 <i class="fas fa-chart-line text-white text-2xl"></i>
                             </div>
                             <h3 class="text-2xl font-bold text-wine mb-2">Rendimiento Estimado</h3>
@@ -357,14 +416,9 @@
                             <!-- Gráfico de línea simple -->
                             <div class="relative h-12 mb-2">
                                 <svg class="w-full h-full" viewBox="0 0 100 50" preserveAspectRatio="none">
-                                    <polyline
-                                        points="0,40 20,35 40,30 60,25 80,20 100,15"
-                                        fill="none"
-                                        stroke="var(--wine-primary)"
-                                        stroke-width="2"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
+                                    <polyline points="0,40 20,35 40,30 60,25 80,20 100,15" fill="none"
+                                        stroke="var(--wine-primary)" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
                                     <circle cx="100" cy="15" r="2" fill="var(--wine-primary)" />
                                 </svg>
                             </div>
@@ -379,30 +433,34 @@
             </div>
         </div>
     </section>
-    
+
     <!-- =======================
          SECCIÓN SERVICIOS
          ======================= -->
     <section id="servicios" class="py-20 transition-colors duration-300" style="background-color: var(--bg-primary);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-4xl font-display font-bold mb-4 transition-colors duration-300" style="color: var(--text-primary);">
+                <h2 class="text-4xl font-display font-bold mb-4 transition-colors duration-300"
+                    style="color: var(--text-primary);">
                     Nuestros <span class="text-wine">Servicios</span>
                 </h2>
                 <div class="section-divider w-24 mx-auto mb-6"></div>
-                <p class="text-xl max-w-3xl mx-auto transition-colors duration-300" style="color: var(--text-secondary);">
+                <p class="text-xl max-w-3xl mx-auto transition-colors duration-300"
+                    style="color: var(--text-secondary);">
                     Soluciones integrales para optimizar cada aspecto de tu producción vitivinícola
                 </p>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                 <!-- Servicio 1: Monitoreo Satelital -->
-                <div class="rounded-xl p-6 lg:p-8 card-hover wine-shadow transition-colors duration-300" style="background-color: var(--card-bg); border: 1px solid var(--border-color);">
+                <div class="rounded-xl p-6 lg:p-8 card-hover wine-shadow transition-colors duration-300"
+                    style="background-color: var(--card-bg); border: 1px solid var(--border-color);">
                     <div class="w-16 h-16 bg-wine-gradient rounded-lg flex items-center justify-center mb-6">
                         <i class="fas fa-satellite text-white text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-4 transition-colors duration-300" style="color: var(--text-primary);">Monitoreo Satelital</h3>
+                    <h3 class="text-xl font-semibold mb-4 transition-colors duration-300"
+                        style="color: var(--text-primary);">Monitoreo Satelital</h3>
                     <p class="mb-6 transition-colors duration-300" style="color: var(--text-secondary);">
-                        Análisis de imágenes satelitales Sentinel-2 para monitoreo continuo de cultivos, 
+                        Análisis de imágenes satelitales Sentinel-2 para monitoreo continuo de cultivos,
                         detección de estrés hídrico y evaluación de vigor vegetal.
                     </p>
                     <ul class="space-y-2 text-sm transition-colors duration-300" style="color: var(--text-secondary);">
@@ -422,12 +480,13 @@
                 </div>
                 <!-- Servicio 2: Análisis Predictivo -->
                 <div class="bg-white rounded-xl p-6 lg:p-8 card-hover gold-shadow border border-gray-100">
-                    <div class="w-16 h-16 bg-gradient-to-br from-gold-accent to-yellow-600 rounded-lg flex items-center justify-center mb-6">
+                    <div
+                        class="w-16 h-16 bg-gradient-to-br from-gold-accent to-yellow-600 rounded-lg flex items-center justify-center mb-6">
                         <i class="fas fa-chart-line text-white text-2xl"></i>
                     </div>
                     <h3 class="text-xl font-semibold text-charcoal mb-4">Análisis Predictivo</h3>
                     <p class="text-gray-600 mb-6">
-                        Inteligencia artificial para predecir rendimientos, optimizar riego y 
+                        Inteligencia artificial para predecir rendimientos, optimizar riego y
                         anticipar problemas fitosanitarios antes de que afecten la producción.
                     </p>
                     <ul class="space-y-2 text-sm text-gray-600">
@@ -452,7 +511,7 @@
                     </div>
                     <h3 class="text-xl font-semibold text-charcoal mb-4">Agricultura de Precisión</h3>
                     <p class="text-gray-600 mb-6">
-                        Mapas de variabilidad espacial para aplicación variable de insumos, 
+                        Mapas de variabilidad espacial para aplicación variable de insumos,
                         optimizando costos y maximizando la eficiencia productiva.
                     </p>
                     <ul class="space-y-2 text-sm text-gray-600">
@@ -473,7 +532,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- =======================
          SECCIÓN PRODUCTOS
          ======================= -->
@@ -498,7 +557,7 @@
                         <h3 class="text-3xl font-display font-bold text-wine">VineWatch Pro</h3>
                     </div>
                     <p class="text-lg text-gray-600 leading-relaxed">
-                        Plataforma integral de monitoreo vitivinícola que combina datos satelitales, 
+                        Plataforma integral de monitoreo vitivinícola que combina datos satelitales,
                         meteorológicos y de campo para ofrecer una visión completa de tu viñedo.
                     </p>
                     <ul class="space-y-3">
@@ -544,17 +603,13 @@
                                 </div>
                             </div>
                             <!-- Gráfico de tendencias -->
-                            <div class="bg-gradient-to-r from-vineyard-green to-vineyard-light h-24 rounded-lg relative overflow-hidden">
+                            <div
+                                class="bg-gradient-to-r from-vineyard-green to-vineyard-light h-24 rounded-lg relative overflow-hidden">
                                 <div class="absolute inset-0 p-3">
                                     <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                                        <polyline
-                                            points="5,80 15,70 25,60 35,45 45,55 55,40 65,50 75,35 85,25 95,30"
-                                            fill="none"
-                                            stroke="rgba(255,255,255,0.8)"
-                                            stroke-width="2"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
+                                        <polyline points="5,80 15,70 25,60 35,45 45,55 55,40 65,50 75,35 85,25 95,30"
+                                            fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
                                         <circle cx="95" cy="30" r="2" fill="rgba(255,255,255,0.9)" />
                                     </svg>
                                 </div>
@@ -571,7 +626,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- =======================
          SECCIÓN SOBRE NOSOTROS
          ======================= -->
@@ -588,31 +643,39 @@
                     </div>
                     <div class="space-y-6">
                         <p class="text-lg text-gray-600 leading-relaxed">
-                            En A&J Consulting, combinamos más de 15 años de experiencia en viticultura 
+                            En A&J Consulting, combinamos más de 15 años de experiencia en viticultura
                             con las tecnologías más avanzadas en análisis de datos y teledetección.
                         </p>
                         <p class="text-lg text-gray-600 leading-relaxed">
-                            Nuestro equipo de ingenieros agrónomos, especialistas en datos y desarrolladores 
-                            trabajan juntos para crear soluciones que realmente impacten en la productividad 
+                            Nuestro equipo de ingenieros agrónomos, especialistas en datos y desarrolladores
+                            trabajan juntos para crear soluciones que realmente impacten en la productividad
                             y sostenibilidad de tu viñedo.
                         </p>
                     </div>
                     <div class="grid grid-cols-2 gap-8">
-                        <div class="text-center p-4 rounded-lg transition-colors duration-300" style="background-color: var(--bg-secondary);">
+                        <div class="text-center p-4 rounded-lg transition-colors duration-300"
+                            style="background-color: var(--bg-secondary);">
                             <div class="text-3xl font-bold text-wine mb-2">15+</div>
-                            <div class="text-sm transition-colors duration-300" style="color: var(--text-secondary);">Años de Experiencia</div>
+                            <div class="text-sm transition-colors duration-300" style="color: var(--text-secondary);">
+                                Años de Experiencia</div>
                         </div>
-                        <div class="text-center p-4 rounded-lg transition-colors duration-300" style="background-color: var(--bg-secondary);">
+                        <div class="text-center p-4 rounded-lg transition-colors duration-300"
+                            style="background-color: var(--bg-secondary);">
                             <div class="text-3xl font-bold text-gold mb-2">50+</div>
-                            <div class="text-sm transition-colors duration-300" style="color: var(--text-secondary);">Viñedos Asesorados</div>
+                            <div class="text-sm transition-colors duration-300" style="color: var(--text-secondary);">
+                                Viñedos Asesorados</div>
                         </div>
-                        <div class="text-center p-4 rounded-lg transition-colors duration-300" style="background-color: var(--bg-secondary);">
+                        <div class="text-center p-4 rounded-lg transition-colors duration-300"
+                            style="background-color: var(--bg-secondary);">
                             <div class="text-3xl font-bold text-vineyard mb-2">1000+</div>
-                            <div class="text-sm transition-colors duration-300" style="color: var(--text-secondary);">Hectáreas Monitoreadas</div>
+                            <div class="text-sm transition-colors duration-300" style="color: var(--text-secondary);">
+                                Hectáreas Monitoreadas</div>
                         </div>
-                        <div class="text-center p-4 rounded-lg transition-colors duration-300" style="background-color: var(--bg-secondary);">
+                        <div class="text-center p-4 rounded-lg transition-colors duration-300"
+                            style="background-color: var(--bg-secondary);">
                             <div class="text-3xl font-bold text-wine mb-2">98%</div>
-                            <div class="text-sm transition-colors duration-300" style="color: var(--text-secondary);">Satisfacción del Cliente</div>
+                            <div class="text-sm transition-colors duration-300" style="color: var(--text-secondary);">
+                                Satisfacción del Cliente</div>
                         </div>
                     </div>
                 </div>
@@ -620,22 +683,26 @@
                 <div class="relative">
                     <div class="bg-gradient-to-br from-wine to-wine-dark rounded-2xl p-8 text-white">
                         <div class="text-center space-y-6">
-                            <div class="w-32 h-32 bg-white bg-opacity-20 rounded-full mx-auto flex items-center justify-center">
+                            <div
+                                class="w-32 h-32 bg-white bg-opacity-20 rounded-full mx-auto flex items-center justify-center">
                                 <i class="fas fa-users text-4xl"></i>
                             </div>
                             <h3 class="text-2xl font-display font-bold">Nuestro Equipo</h3>
                             <p class="text-lg opacity-90">
-                                Ingenieros agrónomos, especialistas en datos y desarrolladores 
+                                Ingenieros agrónomos, especialistas en datos y desarrolladores
                                 trabajando juntos por la viticultura del futuro.
                             </p>
                             <div class="flex justify-center space-x-4">
-                                <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                                <div
+                                    class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
                                     <i class="fas fa-graduation-cap"></i>
                                 </div>
-                                <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                                <div
+                                    class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
                                     <i class="fas fa-laptop-code"></i>
                                 </div>
-                                <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                                <div
+                                    class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
                                     <i class="fas fa-seedling"></i>
                                 </div>
                             </div>
@@ -645,7 +712,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- =======================
          SECCIÓN CONTACTO
          ======================= -->
@@ -657,7 +724,7 @@
                 </h2>
                 <div class="w-24 h-1 bg-amber-300 mx-auto mb-6 rounded-full"></div>
                 <p class="text-xl text-white text-opacity-90 max-w-3xl mx-auto">
-                    Contacta con nuestros especialistas y descubre cómo la tecnología puede 
+                    Contacta con nuestros especialistas y descubre cómo la tecnología puede
                     transformar tu producción vitivinícola.
                 </p>
             </div>
@@ -667,7 +734,8 @@
                     <div class="space-y-6">
                         <h3 class="text-2xl font-display font-bold text-amber-300">Información de Contacto</h3>
                         <div class="flex items-start space-x-4">
-                            <div class="w-12 h-12 bg-amber-300 bg-opacity-20 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <div
+                                class="w-12 h-12 bg-amber-300 bg-opacity-20 rounded-lg flex items-center justify-center flex-shrink-0">
                                 <i class="fas fa-map-marker-alt text-amber-300"></i>
                             </div>
                             <div>
@@ -677,7 +745,8 @@
                             </div>
                         </div>
                         <div class="flex items-center space-x-4">
-                            <div class="w-12 h-12 bg-amber-300 bg-opacity-20 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <div
+                                class="w-12 h-12 bg-amber-300 bg-opacity-20 rounded-lg flex items-center justify-center flex-shrink-0">
                                 <i class="fas fa-phone text-amber-300"></i>
                             </div>
                             <div>
@@ -686,7 +755,8 @@
                             </div>
                         </div>
                         <div class="flex items-center space-x-4">
-                            <div class="w-12 h-12 bg-amber-300 bg-opacity-20 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <div
+                                class="w-12 h-12 bg-amber-300 bg-opacity-20 rounded-lg flex items-center justify-center flex-shrink-0">
                                 <i class="fas fa-envelope text-amber-300"></i>
                             </div>
                             <div>
@@ -695,7 +765,8 @@
                             </div>
                         </div>
                         <div class="flex items-center space-x-4">
-                            <div class="w-12 h-12 bg-amber-300 bg-opacity-20 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <div
+                                class="w-12 h-12 bg-amber-300 bg-opacity-20 rounded-lg flex items-center justify-center flex-shrink-0">
                                 <i class="fas fa-globe text-amber-300"></i>
                             </div>
                             <div>
@@ -708,7 +779,8 @@
                     <div class="pt-8">
                         <h4 class="font-semibold text-lg mb-4 text-white">Síguenos</h4>
                         <div class="flex space-x-4">
-                            <a href="#" class="w-12 h-12 bg-amber-300 bg-opacity-20 rounded-lg flex items-center justify-center hover:bg-opacity-30 transition-all">
+                            <a href="#"
+                                class="w-12 h-12 bg-amber-300 bg-opacity-20 rounded-lg flex items-center justify-center hover:bg-opacity-30 transition-all">
                                 <i class="fab fa-linkedin text-amber-300"></i>
                             </a>
                         </div>
@@ -721,26 +793,32 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-sm font-medium mb-2 text-white">Nombre</label>
-                                <input type="text" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 text-white placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-amber-300">
+                                <input type="text"
+                                    class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 text-white placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-amber-300">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium mb-2 text-white">Apellido</label>
-                                <input type="text" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 text-white placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-amber-300">
+                                <input type="text"
+                                    class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 text-white placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-amber-300">
                             </div>
                         </div>
                         <div>
                             <label class="block text-sm font-medium mb-2 text-white">Email</label>
-                            <input type="email" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 text-white placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-amber-300">
+                            <input type="email"
+                                class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 text-white placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-amber-300">
                         </div>
                         <div>
                             <label class="block text-sm font-medium mb-2 text-white">Teléfono</label>
-                            <input type="tel" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 text-white placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-amber-300">
+                            <input type="tel"
+                                class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 text-white placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-amber-300">
                         </div>
                         <div>
                             <label class="block text-sm font-medium mb-2 text-white">Mensaje</label>
-                            <textarea rows="4" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 text-white placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-amber-300 resize-none"></textarea>
+                            <textarea rows="4"
+                                class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 text-white placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-amber-300 resize-none"></textarea>
                         </div>
-                        <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-300 text-lg">
+                        <button type="submit"
+                            class="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-300 text-lg">
                             <i class="fas fa-paper-plane mr-2"></i>
                             Enviar Mensaje
                         </button>
@@ -749,7 +827,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- =======================
          FOOTER COMPLETO
          ======================= -->
@@ -760,7 +838,8 @@
                 <div class="lg:col-span-2 space-y-4">
                     <div class="flex items-center space-x-3">
                         <div class="w-16 h-16 bg-wine-gradient rounded-lg flex items-center justify-center wine-shadow">
-                            <img src="assets/logodesarrollador.png" alt="A&J Consulting Logo" class="w-12 h-12 object-contain" onerror="this.style.display=
+                            <img src="assets/logodesarrollador.png" alt="A&J Consulting Logo"
+                                class="w-12 h-12 object-contain" onerror="this.style.display=
 none; this.nextElementSibling.style.display=flex;">
                             <div class="w-12 h-12 bg-gold-gradient rounded-lg flex items-center justify-center hidden">
                                 <i class="fas fa-wine-glass-alt text-white text-xl"></i>
@@ -772,17 +851,20 @@ none; this.nextElementSibling.style.display=flex;">
                         </div>
                     </div>
                     <p class="text-gray-700 text-sm leading-relaxed max-w-md">
-                        Especializados en viticultura de precisión y tecnología satelital. 
+                        Especializados en viticultura de precisión y tecnología satelital.
                         Transformamos datos en decisiones inteligentes para el sector vitivinícola argentino.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 bg-wine hover:bg-wine-dark rounded-full flex items-center justify-center transition-colors">
+                        <a href="#"
+                            class="w-10 h-10 bg-wine hover:bg-wine-dark rounded-full flex items-center justify-center transition-colors">
                             <i class="fab fa-linkedin text-white"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-gold hover:bg-yellow-600 rounded-full flex items-center justify-center transition-colors">
+                        <a href="#"
+                            class="w-10 h-10 bg-gold hover:bg-yellow-600 rounded-full flex items-center justify-center transition-colors">
                             <i class="fab fa-github text-white"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-vineyard hover:bg-vineyard-light rounded-full flex items-center justify-center transition-colors">
+                        <a href="#"
+                            class="w-10 h-10 bg-vineyard hover:bg-vineyard-light rounded-full flex items-center justify-center transition-colors">
                             <i class="fab fa-twitter text-white"></i>
                         </a>
                     </div>
@@ -794,8 +876,10 @@ none; this.nextElementSibling.style.display=flex;">
                         <li><a href="#" class="text-gray-700 hover:text-wine transition-colors">VineWatch Pro</a></li>
                         <li><a href="#" class="text-gray-700 hover:text-wine transition-colors">GrassGauge</a></li>
                         <li><a href="#" class="text-gray-700 hover:text-wine transition-colors">Agro Analytics</a></li>
-                        <li><a href="#" class="text-gray-700 hover:text-wine transition-colors">Agricultura de Precisión</a></li>
-                        <li><a href="#" class="text-gray-700 hover:text-wine transition-colors">Consultoría Técnica</a></li>
+                        <li><a href="#" class="text-gray-700 hover:text-wine transition-colors">Agricultura de
+                                Precisión</a></li>
+                        <li><a href="#" class="text-gray-700 hover:text-wine transition-colors">Consultoría Técnica</a>
+                        </li>
                     </ul>
                 </div>
                 <!-- Contacto -->
@@ -811,15 +895,18 @@ none; this.nextElementSibling.style.display=flex;">
                         </div>
                         <div class="flex items-center space-x-3">
                             <i class="fas fa-phone text-wine"></i>
-                            <a href="tel:+54935123456789" class="text-gray-700 hover:text-wine transition-colors">+54 9 11 2345-6789</a>
+                            <a href="tel:+54935123456789" class="text-gray-700 hover:text-wine transition-colors">+54 9
+                                11 2345-6789</a>
                         </div>
                         <div class="flex items-center space-x-3">
                             <i class="fas fa-envelope text-wine"></i>
-                            <a href="mailto:ajconsulting@gmail.com" class="text-gray-700 hover:text-wine transition-colors">info@ajconsulting.com.ar</a>
+                            <a href="mailto:ajconsulting@gmail.com"
+                                class="text-gray-700 hover:text-wine transition-colors">info@ajconsulting.com.ar</a>
                         </div>
                         <div class="flex items-center space-x-3">
                             <i class="fas fa-globe text-wine"></i>
-                            <a href="https://ajconsulting.com.ar" class="text-gray-700 hover:text-wine transition-colors">ajconsulting.com.ar</a>
+                            <a href="https://ajconsulting.com.ar"
+                                class="text-gray-700 hover:text-wine transition-colors">ajconsulting.com.ar</a>
                         </div>
                     </div>
                 </div>
@@ -829,7 +916,7 @@ none; this.nextElementSibling.style.display=flex;">
                 <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                     <div class="text-center md:text-left">
                         <p class="text-sm text-gray-700">
-                            © 2025 <span class="font-semibold text-wine">A&J Consulting</span>. 
+                            © 2025 <span class="font-semibold text-wine">A&J Consulting</span>.
                             Todos los derechos reservados.
                         </p>
                         <p class="text-xs text-gray-500 mt-1">
@@ -844,7 +931,8 @@ none; this.nextElementSibling.style.display=flex;">
                 </div>
                 <!-- Créditos de tecnología -->
                 <div class="mt-6 pt-6 border-t border-gray-300">
-                    <div class="flex flex-col sm:flex-row justify-between items-center text-xs text-gray-600 space-y-2 sm:space-y-0">
+                    <div
+                        class="flex flex-col sm:flex-row justify-between items-center text-xs text-gray-600 space-y-2 sm:space-y-0">
                         <div class="flex items-center space-x-4">
                             <span>Powered by:</span>
                             <div class="flex items-center space-x-3">
@@ -870,7 +958,8 @@ none; this.nextElementSibling.style.display=flex;">
                 <!-- Logo y Empresa -->
                 <div class="flex items-center space-x-3">
                     <div class="relative w-10 h-10 bg-wine-gradient rounded-lg flex items-center justify-center">
-                        <img src="assets/logodesarrollador.png" alt="A&J Consulting Logo" class="w-8 h-8 object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <img src="assets/logodesarrollador.png" alt="A&J Consulting Logo" class="w-8 h-8 object-contain"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                         <div class="w-8 h-8 bg-gold-gradient rounded-lg flex items-center justify-center hidden">
                             <i class="fas fa-wine-glass-alt text-white text-sm"></i>
                         </div>
@@ -929,7 +1018,7 @@ none; this.nextElementSibling.style.display=flex;">
         updateThemeIcon(currentTheme);
 
         // Evento para alternar tema
-        themeToggle.addEventListener('click', function() {
+        themeToggle.addEventListener('click', function () {
             const currentTheme = body.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             body.setAttribute('data-theme', newTheme);
@@ -956,7 +1045,7 @@ none; this.nextElementSibling.style.display=flex;">
         // =========================
         // Función: Efecto de blur en navegación al hacer scroll
         // =========================
-        window.addEventListener("scroll", function() {
+        window.addEventListener("scroll", function () {
             const nav = document.querySelector("nav");
             if (window.scrollY > 100) {
                 nav.style.backdropFilter = "blur(10px)";
@@ -968,7 +1057,7 @@ none; this.nextElementSibling.style.display=flex;">
         // =========================
         // Función: Envío de formulario de contacto
         // =========================
-        document.querySelector("form").addEventListener("submit", function(e) {
+        document.querySelector("form").addEventListener("submit", function (e) {
             e.preventDefault();
             alert("¡Gracias por tu mensaje! Te contactaremos pronto.");
         });
@@ -980,7 +1069,7 @@ none; this.nextElementSibling.style.display=flex;">
             threshold: 0.1,
             rootMargin: "0px 0px -50px 0px"
         };
-        const observer = new IntersectionObserver(function(entries) {
+        const observer = new IntersectionObserver(function (entries) {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add("animate-fade-in");
@@ -1016,40 +1105,57 @@ none; this.nextElementSibling.style.display=flex;">
         // Actualiza dashboard cada 30 segundos
         setInterval(updateDashboardData, 30000);
     </script>
-    
-    
+
+
     <!-- Swiper JS para sliders/carouseles -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    
-    <!-- Script de autenticación -->
-    <script src="js/auth.js"></script>
+
+    <!-- Configuración de variables de entorno -->
+    <script>
+        // Configurar variables de entorno para Supabase
+        // En desarrollo, usar valores por defecto
+        // En producción, Vercel inyectará las variables de entorno
+        window.VITE_SUPABASE_URL = window.VITE_SUPABASE_URL || 'https://agesojhoiemujyokbyin.supabase.co'
+        window.VITE_SUPABASE_ANON_KEY = window.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFnZXNvamhvaWVtdWp5b2tieWluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4NTczMTEsImV4cCI6MjA3NDQzMzMxMX0.03CwWaoXbWJINCE7nzLV4dwSJhvlSu9kC8S-V5VCXJo'
+
+        // Obtener la URL actual para redirección
+        window.CURRENT_URL = window.location.origin
+
+        console.log('🔧 Variables de entorno configuradas:', {
+            supabaseUrl: window.VITE_SUPABASE_URL,
+            currentUrl: window.CURRENT_URL
+        })
+    </script>
+
+    <!-- Script de autenticación simplificado -->
+    <script src="js/auth-simple.js?v=2"></script>
     <script>
         // =========================
         // Función: Menú móvil
         // =========================
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
             const mobileMenu = document.getElementById('mobile-menu');
-            
+
             if (mobileMenuToggle && mobileMenu) {
-                mobileMenuToggle.addEventListener('click', function() {
+                mobileMenuToggle.addEventListener('click', function () {
                     mobileMenu.classList.toggle('hidden');
                 });
-                
+
                 // Cerrar menú al hacer clic en un enlace
                 const mobileLinks = mobileMenu.querySelectorAll('a');
                 mobileLinks.forEach(link => {
-                    link.addEventListener('click', function() {
+                    link.addEventListener('click', function () {
                         mobileMenu.classList.add('hidden');
                     });
                 });
             }
         });
-        
+
         // =========================
         // Función: Inicialización de Swipers
         // =========================
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Swiper para métricas de viñedos
             const metricsSwiper = new Swiper('.metrics-swiper', {
                 slidesPerView: 1,
@@ -1116,4 +1222,5 @@ none; this.nextElementSibling.style.display=flex;">
         });
     </script>
 </body>
+
 </html>
