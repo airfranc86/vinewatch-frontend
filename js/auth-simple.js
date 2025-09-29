@@ -6,7 +6,7 @@ let supabase = null
 async function initSupabase() {
     try {
         const { createClient } = await import('https://cdn.skypack.dev/@supabase/supabase-js@2')
-        
+
         supabase = createClient(
             window.VITE_SUPABASE_URL,
             window.VITE_SUPABASE_ANON_KEY,
@@ -16,7 +16,7 @@ async function initSupabase() {
                 }
             }
         )
-        
+
         console.log('✅ Supabase inicializado correctamente')
         return true
     } catch (error) {
@@ -28,7 +28,7 @@ async function initSupabase() {
 async function sendMagicLink() {
     const emailInput = document.getElementById('email-input')
     const email = emailInput?.value?.trim()
-    
+
     if (!email) {
         showMessage('Por favor, ingresa tu email', 'warning')
         return
@@ -40,13 +40,13 @@ async function sendMagicLink() {
     }
 
     console.log('📧 Enviando Magic Link a:', email)
-    
+
     const button = document.getElementById('send-magic-link-btn')
     const originalText = button.innerHTML
-    
+
     button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Enviando...'
     button.disabled = true
-    
+
     try {
         const { error } = await supabase.auth.signInWithOtp({
             email: email,
@@ -54,7 +54,7 @@ async function sendMagicLink() {
                 emailRedirectTo: 'https://vinewatch.streamlit.app'
             }
         })
-        
+
         if (error) {
             console.error('❌ Error:', error.message)
             showMessage('Error: ' + error.message, 'error')
@@ -92,16 +92,16 @@ function showMessage(text, type) {
         `
         document.body.appendChild(messageDiv)
     }
-    
+
     const colors = {
         success: '#065F46',
         error: '#7F1D1D',
         warning: '#92400E'
     }
-    
+
     messageDiv.style.backgroundColor = colors[type] || colors.success
     messageDiv.textContent = text
-    
+
     // Auto-ocultar después de 5 segundos
     setTimeout(() => {
         if (messageDiv.parentNode) {
@@ -115,34 +115,54 @@ function isValidEmail(email) {
     return emailRegex.test(email)
 }
 
+// Función para configurar eventos después de que el DOM esté listo
+function setupAuth() {
+    console.log('🔄 Configurando autenticación...')
+
+    // Configurar evento del botón
+    const sendButton = document.getElementById('send-magic-link-btn')
+    if (sendButton) {
+        console.log('✅ Botón encontrado, configurando evento')
+        sendButton.addEventListener('click', function (e) {
+            e.preventDefault()
+            console.log('🖱️ Botón clickeado')
+            sendMagicLink()
+        })
+    } else {
+        console.error('❌ Botón no encontrado')
+    }
+
+    // Configurar evento del formulario
+    const loginForm = document.getElementById('login-form')
+    if (loginForm) {
+        console.log('✅ Formulario encontrado, configurando evento')
+        loginForm.addEventListener('submit', function (e) {
+            e.preventDefault()
+            console.log('📝 Formulario enviado')
+            sendMagicLink()
+        })
+    }
+}
+
 // Inicializar cuando se carga la página
-document.addEventListener('DOMContentLoaded', async function() {
+document.addEventListener('DOMContentLoaded', async function () {
     console.log('🔄 Inicializando autenticación...')
     console.log('📁 auth-simple.js cargado correctamente')
-    
+
     const success = await initSupabase()
-    
+
     if (success) {
-        // Configurar evento del botón
-        const sendButton = document.getElementById('send-magic-link-btn')
-        if (sendButton) {
-            sendButton.addEventListener('click', function(e) {
-                e.preventDefault()
-                sendMagicLink()
-            })
-        }
-        
-        // Configurar evento del formulario
-        const loginForm = document.getElementById('login-form')
-        if (loginForm) {
-            loginForm.addEventListener('submit', function(e) {
-                e.preventDefault()
-                sendMagicLink()
-            })
-        }
-        
+        setupAuth()
         console.log('✅ Autenticación configurada correctamente')
     } else {
         console.error('❌ No se pudo configurar la autenticación')
     }
 })
+
+// También intentar configurar después de un pequeño delay por si acaso
+setTimeout(() => {
+    if (document.getElementById('send-magic-link-btn')) {
+        console.log('🔄 Reconfigurando después de delay...')
+        setupAuth()
+    }
+}, 1000)
