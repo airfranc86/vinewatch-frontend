@@ -51,10 +51,10 @@
 
             <!-- Botón de retorno -->
             <div id="return-button" class="hidden">
-                <a href="/"
+                <a href="https://vinewatch.streamlit.app"
                     class="inline-flex items-center px-4 py-2 bg-wine text-white rounded-lg hover:bg-wine-dark transition-colors mb-2">
                     <i class="fas fa-arrow-left mr-2"></i>
-                    Volver al inicio
+                    Ir a VineWatch
                 </a>
                 <button onclick="requestNewMagicLink()"
                     class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
@@ -76,9 +76,9 @@
             document.getElementById('success-message').classList.remove('hidden')
             document.getElementById('return-button').classList.remove('hidden')
 
-            // Redirigir después de 2 segundos
+            // Redirigir después de 2 segundos a Streamlit
             setTimeout(() => {
-                window.location.href = '/'
+                window.location.href = 'https://vinewatch.streamlit.app'
             }, 2000)
         }
 
