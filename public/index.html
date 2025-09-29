@@ -1111,21 +1111,7 @@ none; this.nextElementSibling.style.display=flex;">
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <!-- Configuración de variables de entorno -->
-    <script>
-        // Configurar variables de entorno para Supabase
-        // En desarrollo, usar valores por defecto
-        // En producción, Vercel inyectará las variables de entorno
-        window.VITE_SUPABASE_URL = window.VITE_SUPABASE_URL || 'https://agesojhoiemujyokbyin.supabase.co'
-        window.VITE_SUPABASE_ANON_KEY = window.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFnZXNvamhvaWVtdWp5b2tieWluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4NTczMTEsImV4cCI6MjA3NDQzMzMxMX0.03CwWaoXbWJINCE7nzLV4dwSJhvlSu9kC8S-V5VCXJo'
-
-        // Obtener la URL actual para redirección
-        window.CURRENT_URL = window.location.origin
-
-        console.log('🔧 Variables de entorno configuradas:', {
-            supabaseUrl: window.VITE_SUPABASE_URL,
-            currentUrl: window.CURRENT_URL
-        })
-    </script>
+    <script src="config.js"></script>
 
     <!-- Script de autenticación simplificado -->
     <script src="js/auth-simple.js?v=2"></script>
