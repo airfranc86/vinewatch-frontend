@@ -26,7 +26,7 @@ class AuthManager {
       
       this.supabase = createClient(supabaseUrl, supabaseKey, {
         auth: {
-          redirectTo: window.location.origin + '/auth/callback'
+          redirectTo: 'https://vinewatch.streamlit.app'
         }
       })
 
