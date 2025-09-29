@@ -28,6 +28,7 @@ class AuthManager {
         auth: {
           redirectTo: 'https://vinewatch.streamlit.app'
         }
+
       })
 
       // Verificar sesión existente
