@@ -51,11 +51,11 @@
 
             <!-- Botón de retorno -->
             <div id="return-button" class="hidden">
-                <a href="https://vinewatch.streamlit.app"
+                <button onclick="goToVineWatch()"
                     class="inline-flex items-center px-4 py-2 bg-wine text-white rounded-lg hover:bg-wine-dark transition-colors mb-2">
                     <i class="fas fa-arrow-left mr-2"></i>
                     Ir a VineWatch
-                </a>
+                </button>
                 <button onclick="requestNewMagicLink()"
                     class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                     <i class="fas fa-envelope mr-2"></i>
@@ -76,9 +76,21 @@
             document.getElementById('success-message').classList.remove('hidden')
             document.getElementById('return-button').classList.remove('hidden')
 
-            // Redirigir después de 2 segundos a Streamlit
+            // Redirigir después de 2 segundos a Streamlit con tokens
             setTimeout(() => {
-                window.location.href = 'https://vinewatch.streamlit.app'
+                // Obtener tokens de la sesión guardada
+                const sessionData = localStorage.getItem('supabase_session')
+                if (sessionData) {
+                    const session = JSON.parse(sessionData)
+                    const accessToken = session.access_token
+                    const refreshToken = session.refresh_token
+                    
+                    // Redirigir a Streamlit con los tokens como parámetros
+                    window.location.href = `https://vinewatch.streamlit.app?access_token=${accessToken}&refresh_token=${refreshToken}`
+                } else {
+                    // Fallback si no hay sesión guardada
+                    window.location.href = 'https://vinewatch.streamlit.app'
+                }
             }, 2000)
         }
 
@@ -185,6 +197,22 @@
             } catch (error) {
                 console.error('Error inesperado:', error)
                 showError('Error inesperado: ' + error.message)
+            }
+        }
+
+        // Función para ir a VineWatch con tokens
+        function goToVineWatch() {
+            const sessionData = localStorage.getItem('supabase_session')
+            if (sessionData) {
+                const session = JSON.parse(sessionData)
+                const accessToken = session.access_token
+                const refreshToken = session.refresh_token
+                
+                // Redirigir a Streamlit con los tokens como parámetros
+                window.location.href = `https://vinewatch.streamlit.app?access_token=${accessToken}&refresh_token=${refreshToken}`
+            } else {
+                // Fallback si no hay sesión guardada
+                window.location.href = 'https://vinewatch.streamlit.app'
             }
         }
 
