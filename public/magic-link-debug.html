@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Magic Link - VineWatch</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .debug-section {
+            background: #2a2a2a;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #8B5CF6;
+        }
+        .success { color: #10B981; }
+        .error { color: #EF4444; }
+        .warning { color: #F59E0B; }
+        .info { color: #3B82F6; }
+        button {
+            background: #8B5CF6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 10px 5px;
+            font-weight: 600;
+        }
+        button:hover { background: #7C3AED; }
+        .code {
+            background: #1a1a1a;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            margin: 10px 0;
+            border: 1px solid #444;
+            word-break: break-all;
+        }
+        .timestamp {
+            font-size: 12px;
+            color: #888;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Debug Magic Link - VineWatch</h1>
+    <p>Esta página te ayuda a diagnosticar problemas con Magic Links.</p>
+
+    <div class="debug-section">
+        <h2>1. 📧 Test Magic Link</h2>
+        <input type="email" id="test-email" placeholder="Ingresa tu email" 
+               style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #444; border-radius: 4px; background: #333; color: white;">
+        <button onclick="sendMagicLink()">Enviar Magic Link</button>
+        <div id="magic-link-results"></div>
+    </div>
+
+    <div class="debug-section">
+        <h2>2. 🔍 Análisis de URL Actual</h2>
+        <button onclick="analyzeCurrentUrl()">Analizar URL</button>
+        <div id="url-analysis"></div>
+    </div>
+
+    <div class="debug-section">
+        <h2>3. ⏰ Test de Tiempo de Expiración</h2>
+        <button onclick="testExpiration()">Probar Expiración</button>
+        <div id="expiration-results"></div>
+    </div>
+
+    <div class="debug-section">
+        <h2>4. 🔧 Configuración Supabase</h2>
+        <button onclick="checkSupabaseConfig()">Verificar Configuración</button>
+        <div id="supabase-config"></div>
+    </div>
+
+    <div class="debug-section">
+        <h2>5. 📊 Logs en Tiempo Real</h2>
+        <div id="realtime-logs" class="code" style="height: 200px; overflow-y: auto;"></div>
+    </div>
+
+    <script src="config.js"></script>
+    <script>
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logElement = document.getElementById('realtime-logs');
+            const color = type === 'error' ? '#EF4444' : type === 'success' ? '#10B981' : type === 'warning' ? '#F59E0B' : '#3B82F6';
+            logElement.innerHTML += `<div style="color: ${color}">[${timestamp}] ${message}</div>`;
+            logElement.scrollTop = logElement.scrollHeight;
+        }
+
+        async function sendMagicLink() {
+            const email = document.getElementById('test-email').value.trim();
+            const results = document.getElementById('magic-link-results');
+            
+            if (!email) {
+                results.innerHTML = '<div class="warning">⚠️ Por favor, ingresa un email</div>';
+                return;
+            }
+            
+            results.innerHTML = '<div class="info">📧 Enviando Magic Link...</div>';
+            log(`Enviando Magic Link a: ${email}`, 'info');
+            
+            try {
+                const { createClient } = await import('https://cdn.skypack.dev/@supabase/supabase-js@2');
+                
+                const supabase = createClient(
+                    window.VITE_SUPABASE_URL,
+                    window.VITE_SUPABASE_ANON_KEY,
+                    {
+                        auth: {
+                            redirectTo: window.CURRENT_URL + '/auth/callback.html'
+                        }
+                    }
+                );
+                
+                const startTime = new Date();
+                log(`Iniciando envío a las ${startTime.toLocaleTimeString()}`, 'info');
+                
+                const { error } = await supabase.auth.signInWithOtp({
+                    email: email,
+                    options: {
+                        emailRedirectTo: window.CURRENT_URL + '/auth/callback.html'
+                    }
+                });
+                
+                const endTime = new Date();
+                const duration = endTime - startTime;
+                
+                if (error) {
+                    results.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+                    log(`Error en Magic Link: ${error.message}`, 'error');
+                } else {
+                    results.innerHTML = `
+                        <div class="success">✅ Magic Link enviado exitosamente</div>
+                        <div class="info">⏱️ Tiempo de envío: ${duration}ms</div>
+                        <div class="info">🕐 Enviado a las: ${endTime.toLocaleString()}</div>
+                        <div class="info">🔗 URL de redirección: ${window.CURRENT_URL}/auth/callback.html</div>
+                    `;
+                    log(`Magic Link enviado exitosamente en ${duration}ms`, 'success');
+                }
+                
+            } catch (error) {
+                results.innerHTML = `<div class="error">❌ Error inesperado: ${error.message}</div>`;
+                log(`Error inesperado: ${error.message}`, 'error');
+            }
+        }
+
+        function analyzeCurrentUrl() {
+            const analysisDiv = document.getElementById('url-analysis');
+            analysisDiv.innerHTML = '';
+            
+            const currentUrl = window.location.href;
+            const urlObj = new URL(currentUrl);
+            
+            const analysis = {
+                'URL Completa': currentUrl,
+                'Protocolo': urlObj.protocol,
+                'Host': urlObj.host,
+                'Pathname': urlObj.pathname,
+                'Search Params': urlObj.search,
+                'Hash': urlObj.hash,
+                'Timestamp': new Date().toISOString()
+            };
+            
+            Object.entries(analysis).forEach(([key, value]) => {
+                analysisDiv.innerHTML += `<div><strong>${key}:</strong> <span class="info">${value}</span></div>`;
+            });
+            
+            // Analizar parámetros de error
+            const hashParams = new URLSearchParams(urlObj.hash.substring(1));
+            const error = hashParams.get('error');
+            const errorCode = hashParams.get('error_code');
+            const errorDescription = hashParams.get('error_description');
+            
+            if (error) {
+                analysisDiv.innerHTML += `
+                    <div class="error">
+                        <strong>❌ Error detectado:</strong><br>
+                        Error: ${error}<br>
+                        Código: ${errorCode}<br>
+                        Descripción: ${errorDescription}
+                    </div>
+                `;
+                log(`Error detectado en URL: ${error} - ${errorDescription}`, 'error');
+            }
+            
+            log('URL analizada', 'success');
+        }
+
+        function testExpiration() {
+            const results = document.getElementById('expiration-results');
+            results.innerHTML = '';
+            
+            const now = new Date();
+            const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000);
+            const oneHourFromNow = new Date(now.getTime() + 60 * 60 * 1000);
+            
+            results.innerHTML = `
+                <div class="info">
+                    <strong>⏰ Análisis de Tiempo:</strong><br>
+                    Hora actual: ${now.toLocaleString()}<br>
+                    Hace 1 hora: ${oneHourAgo.toLocaleString()}<br>
+                    En 1 hora: ${oneHourFromNow.toLocaleString()}
+                </div>
+            `;
+            
+            // Verificar si hay un Magic Link en la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const hashParams = new URLSearchParams(window.location.hash.substring(1));
+            
+            const accessToken = urlParams.get('access_token') || hashParams.get('access_token');
+            
+            if (accessToken) {
+                // Intentar decodificar el token para ver la fecha de expiración
+                try {
+                    const tokenParts = accessToken.split('.');
+                    if (tokenParts.length === 3) {
+                        const payload = JSON.parse(atob(tokenParts[1]));
+                        const expDate = new Date(payload.exp * 1000);
+                        const timeUntilExp = expDate - now;
+                        
+                        results.innerHTML += `
+                            <div class="${timeUntilExp > 0 ? 'success' : 'error'}">
+                                <strong>🔑 Token Analysis:</strong><br>
+                                Expira: ${expDate.toLocaleString()}<br>
+                                Tiempo restante: ${Math.round(timeUntilExp / 1000 / 60)} minutos<br>
+                                Estado: ${timeUntilExp > 0 ? 'Válido' : 'Expirado'}
+                            </div>
+                        `;
+                        log(`Token expira en ${Math.round(timeUntilExp / 1000 / 60)} minutos`, timeUntilExp > 0 ? 'success' : 'error');
+                    }
+                } catch (e) {
+                    results.innerHTML += `<div class="warning">⚠️ No se pudo decodificar el token</div>`;
+                }
+            } else {
+                results.innerHTML += `<div class="info">ℹ️ No se detectó token en la URL</div>`;
+            }
+            
+            log('Test de expiración completado', 'success');
+        }
+
+        async function checkSupabaseConfig() {
+            const configDiv = document.getElementById('supabase-config');
+            configDiv.innerHTML = '<div class="info">🔍 Verificando configuración...</div>';
+            
+            try {
+                const { createClient } = await import('https://cdn.skypack.dev/@supabase/supabase-js@2');
+                
+                const supabase = createClient(
+                    window.VITE_SUPABASE_URL,
+                    window.VITE_SUPABASE_ANON_KEY
+                );
+                
+                // Probar conexión básica
+                const { data, error } = await supabase.auth.getSession();
+                
+                if (error) {
+                    configDiv.innerHTML = `<div class="error">❌ Error de conexión: ${error.message}</div>`;
+                    log(`Error de Supabase: ${error.message}`, 'error');
+                } else {
+                    configDiv.innerHTML = `
+                        <div class="success">✅ Conexión con Supabase exitosa</div>
+                        <div class="info">
+                            <strong>Configuración actual:</strong><br>
+                            URL: ${window.VITE_SUPABASE_URL}<br>
+                            Clave: ${window.VITE_SUPABASE_ANON_KEY ? 'Configurada' : 'No configurada'}<br>
+                            Redirección: ${window.CURRENT_URL}/auth/callback.html
+                        </div>
+                    `;
+                    log('Configuración de Supabase verificada', 'success');
+                }
+                
+            } catch (error) {
+                configDiv.innerHTML = `<div class="error">❌ Error inesperado: ${error.message}</div>`;
+                log(`Error inesperado: ${error.message}`, 'error');
+            }
+        }
+
+        // Ejecutar análisis automático al cargar
+        window.addEventListener('load', function() {
+            log('Página de debug Magic Link cargada', 'success');
+            analyzeCurrentUrl();
+            checkSupabaseConfig();
+        });
+    </script>
+</body>
+</html>
