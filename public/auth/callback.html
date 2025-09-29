@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Autenticando - VineWatch</title>
-    
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="../styles.css">
 </head>
+
 <body class="bg-gradient-to-br from-wine to-wine-dark min-h-screen flex items-center justify-center">
     <div class="max-w-md mx-auto p-8">
         <div class="bg-white rounded-2xl p-8 shadow-2xl text-center">
@@ -21,43 +23,51 @@
             <div class="w-16 h-16 bg-wine-gradient rounded-lg flex items-center justify-center mx-auto mb-6">
                 <i class="fas fa-wine-glass-alt text-white text-2xl"></i>
             </div>
-            
+
             <!-- Título -->
             <h1 class="text-2xl font-bold text-charcoal mb-4">Autenticando...</h1>
-            
+
             <!-- Spinner -->
             <div class="flex justify-center mb-6">
                 <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-wine"></div>
             </div>
-            
+
             <!-- Mensaje -->
             <p class="text-gray-600 mb-6">Procesando tu Magic Link, por favor esperá...</p>
-            
+
             <!-- Estado -->
             <div id="auth-status" class="hidden">
-                <div id="success-message" class="hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                <div id="success-message"
+                    class="hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
                     <i class="fas fa-check-circle mr-2"></i>
                     ¡Autenticación exitosa! Redirigiendo...
                 </div>
-                <div id="error-message" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                <div id="error-message"
+                    class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
                     <i class="fas fa-exclamation-circle mr-2"></i>
                     <span id="error-text">Error en la autenticación</span>
                 </div>
             </div>
-            
+
             <!-- Botón de retorno -->
             <div id="return-button" class="hidden">
-                <a href="/" class="inline-flex items-center px-4 py-2 bg-wine text-white rounded-lg hover:bg-wine-dark transition-colors">
+                <a href="/"
+                    class="inline-flex items-center px-4 py-2 bg-wine text-white rounded-lg hover:bg-wine-dark transition-colors mb-2">
                     <i class="fas fa-arrow-left mr-2"></i>
                     Volver al inicio
                 </a>
+                <button onclick="requestNewMagicLink()"
+                    class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                    <i class="fas fa-envelope mr-2"></i>
+                    Solicitar nuevo Magic Link
+                </button>
             </div>
         </div>
     </div>
 
     <!-- Configuración de variables de entorno -->
     <script src="../config.js"></script>
-    
+
     <!-- Script de autenticación -->
     <script>
         // Función para mostrar mensaje de éxito
@@ -65,13 +75,13 @@
             document.getElementById('auth-status').classList.remove('hidden')
             document.getElementById('success-message').classList.remove('hidden')
             document.getElementById('return-button').classList.remove('hidden')
-            
+
             // Redirigir después de 2 segundos
             setTimeout(() => {
                 window.location.href = '/'
             }, 2000)
         }
-        
+
         // Función para mostrar error
         function showError(message) {
             document.getElementById('auth-status').classList.remove('hidden')
@@ -79,53 +89,86 @@
             document.getElementById('error-text').textContent = message
             document.getElementById('return-button').classList.remove('hidden')
         }
-        
+
         // Procesar callback de autenticación
         async function handleAuthCallback() {
             try {
-                // Obtener parámetros de la URL
+                // Obtener parámetros de la URL (tanto de query como de hash)
                 const urlParams = new URLSearchParams(window.location.search)
-                const accessToken = urlParams.get('access_token')
-                const refreshToken = urlParams.get('refresh_token')
-                const error = urlParams.get('error')
-                const errorDescription = urlParams.get('error_description')
-                
+                const hashParams = new URLSearchParams(window.location.hash.substring(1))
+
+                // Combinar parámetros de query y hash
+                const allParams = new URLSearchParams()
+
+                // Agregar parámetros de query
+                for (const [key, value] of urlParams.entries()) {
+                    allParams.set(key, value)
+                }
+
+                // Agregar parámetros de hash
+                for (const [key, value] of hashParams.entries()) {
+                    allParams.set(key, value)
+                }
+
+                const accessToken = allParams.get('access_token')
+                const refreshToken = allParams.get('refresh_token')
+                const error = allParams.get('error')
+                const errorDescription = allParams.get('error_description')
+                const errorCode = allParams.get('error_code')
+
+                console.log('🔍 Parámetros detectados:', {
+                    accessToken: !!accessToken,
+                    refreshToken: !!refreshToken,
+                    error: error,
+                    errorCode: errorCode,
+                    errorDescription: errorDescription
+                })
+
                 if (error) {
-                    showError(errorDescription || 'Error en la autenticación')
+                    let errorMessage = errorDescription || 'Error en la autenticación'
+
+                    // Manejar errores específicos
+                    if (errorCode === 'otp_expired') {
+                        errorMessage = 'El Magic Link ha expirado. Por favor, solicita uno nuevo.'
+                    } else if (errorCode === 'access_denied') {
+                        errorMessage = 'Acceso denegado. Por favor, intenta nuevamente.'
+                    }
+
+                    showError(errorMessage)
                     return
                 }
-                
+
                 if (!accessToken || !refreshToken) {
-                    showError('Token de acceso no encontrado')
+                    showError('Token de acceso no encontrado. El Magic Link puede haber expirado.')
                     return
                 }
-                
+
                 // Cargar Supabase
                 const { createClient } = await import('https://cdn.skypack.dev/@supabase/supabase-js@2')
-                
+
                 // Configuración - SOLO variables de entorno
                 const supabaseUrl = window.VITE_SUPABASE_URL
                 const supabaseKey = window.VITE_SUPABASE_ANON_KEY
-                
+
                 if (!supabaseUrl || !supabaseKey) {
-                  showError('Variables de entorno de Supabase no configuradas')
-                  return
+                    showError('Variables de entorno de Supabase no configuradas')
+                    return
                 }
-                
+
                 const supabase = createClient(supabaseUrl, supabaseKey)
-                
+
                 // Establecer sesión
                 const { data, error: sessionError } = await supabase.auth.setSession({
                     access_token: accessToken,
                     refresh_token: refreshToken
                 })
-                
+
                 if (sessionError) {
                     console.error('Error al establecer sesión:', sessionError)
                     showError('Error al establecer la sesión: ' + sessionError.message)
                     return
                 }
-                
+
                 if (data.session) {
                     // Guardar información de sesión en localStorage para el resto de la app
                     localStorage.setItem('supabase_session', JSON.stringify({
@@ -133,20 +176,54 @@
                         refresh_token: data.session.refresh_token,
                         user: data.session.user
                     }))
-                    
+
                     showSuccess()
                 } else {
                     showError('No se pudo establecer la sesión')
                 }
-                
+
             } catch (error) {
                 console.error('Error inesperado:', error)
                 showError('Error inesperado: ' + error.message)
             }
         }
-        
+
+        // Función para solicitar nuevo Magic Link
+        async function requestNewMagicLink() {
+            const email = prompt('Ingresa tu email para recibir un nuevo Magic Link:')
+            if (!email) return
+
+            try {
+                const { createClient } = await import('https://cdn.skypack.dev/@supabase/supabase-js@2')
+
+                const supabase = createClient(
+                    window.VITE_SUPABASE_URL,
+                    window.VITE_SUPABASE_ANON_KEY
+                )
+
+                const { error } = await supabase.auth.signInWithOtp({
+                    email: email,
+                    options: {
+                        emailRedirectTo: window.CURRENT_URL + '/auth/callback.html'
+                    }
+                })
+
+                if (error) {
+                    alert('Error: ' + error.message)
+                } else {
+                    alert('¡Nuevo Magic Link enviado! Revisa tu email.')
+                    // Redirigir al inicio
+                    window.location.href = '/'
+                }
+
+            } catch (error) {
+                alert('Error inesperado: ' + error.message)
+            }
+        }
+
         // Ejecutar cuando la página cargue
         document.addEventListener('DOMContentLoaded', handleAuthCallback)
     </script>
 </body>
+
 </html>
