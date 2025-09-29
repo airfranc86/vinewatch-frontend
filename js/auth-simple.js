@@ -118,6 +118,7 @@ function isValidEmail(email) {
 // Inicializar cuando se carga la página
 document.addEventListener('DOMContentLoaded', async function() {
     console.log('🔄 Inicializando autenticación...')
+    console.log('📁 auth-simple.js cargado correctamente')
     
     const success = await initSupabase()
     
