@@ -40,6 +40,7 @@ class AuthManager {
       })
 
     } catch (error) {
+      
       console.error('Error al inicializar Supabase:', error)
     }
   }
