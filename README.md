@@ -6,6 +6,16 @@
 
 VineWatch es una plataforma integral de monitoreo vitivinícola que combina datos satelitales, meteorológicos y de campo para ofrecer una visión completa de tu viñedo. Utilizamos tecnología de vanguardia para transformar datos en decisiones inteligentes que optimizan la producción vitivinícola.
 
+## ✅ Estado del Proyecto
+
+### 🎉 **COMPLETADO - Sistema en Producción**
+- ✅ **Frontend**: Desplegado en Vercel (`https://vinewatchconsulting.vercel.app`)
+- ✅ **Backend**: Desplegado en Streamlit Cloud (`https://vinewatch.streamlit.app`)
+- ✅ **Autenticación**: Magic Link con Supabase funcionando
+- ✅ **Panel Admin**: Acceso permanente configurado
+- ✅ **APIs Meteorológicas**: CheckWX + NOAA integradas
+- ✅ **Librerías Geoespaciales**: Folium, Rasterio, Shapely, GeoPandas
+
 ## 🚀 Características Principales
 
 ### 🛰️ Monitoreo Satelital
@@ -30,13 +40,20 @@ VineWatch es una plataforma integral de monitoreo vitivinícola que combina dato
 
 ### Frontend (Vercel)
 - **Tecnología**: HTML5, CSS3, JavaScript, Tailwind CSS
-- **Características**: Responsive, modo claro/oscuro, Swiper.js
-- **URL Local**: http://localhost:8000/index.html
+- **Características**: Responsive, modo claro/oscuro, Swiper.js, Magic Link Auth
+- **URL Producción**: `https://vinewatchconsulting.vercel.app`
+- **URL Local**: `http://localhost:8000/index.html`
 
 ### Backend (Streamlit Cloud)
-- **Tecnología**: Python, Streamlit, Pandas, Plotly
-- **Características**: Dashboard interactivo, visualizaciones, predicciones IA
-- **URL Local**: http://localhost:8501
+- **Tecnología**: Python, Streamlit, Pandas, Plotly, Supabase
+- **Características**: Dashboard interactivo, visualizaciones, predicciones IA, Panel Admin
+- **URL Producción**: `https://vinewatch.streamlit.app`
+- **URL Local**: `http://localhost:8501`
+
+### Autenticación (Supabase)
+- **Tecnología**: Supabase Auth, Magic Links
+- **Características**: Autenticación sin contraseña, Panel Admin, Sesiones persistentes
+- **Flujo**: Frontend → Magic Link → Backend
 
 ## 📁 Estructura del Proyecto
 
@@ -63,22 +80,64 @@ VineWatch/
 - Python 3.11+
 - Node.js 18+ (para Vercel CLI)
 - Git
+- Cuenta de Supabase
+- Cuenta de Vercel
+- Cuenta de Streamlit Cloud
 
-**Acceder a las aplicaciones**
-- Frontend: http://localhost:8000
-- Backend: http://localhost:8501
+### 🔐 Configuración de Supabase
 
-### Backend en Streamlit Cloud
+#### 1. Crear Proyecto en Supabase
+1. Ir a [supabase.com](https://supabase.com)
+2. Crear nuevo proyecto
+3. Anotar las credenciales:
+   - **Project URL**: `https://tu-proyecto.supabase.co`
+   - **Anon Key**: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`
+   - **Service Role Key**: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`
 
-1. **Conectar repositorio**
-   - Ir a https://share.streamlit.io
-   - Conectar con GitHub
-   - Seleccionar este repositorio
+#### 2. Configurar Autenticación
+1. **Authentication** → **Settings** → **URL Configuration**
+2. **Site URL**: `https://vinewatch.streamlit.app`
+3. **Redirect URLs**: `https://vinewatch.streamlit.app`
+4. **Email Templates** → **Magic Link** → Usar `{{ .ConfirmationURL }}`
 
-2. **Configurar aplicación**
-   - Main file: `streamlit_app.py`
-   - Python version: 3.11
-   - Requirements: `requirements.txt`
+#### 3. Configurar Variables de Entorno
+
+**Frontend (`index.html`):**
+```html
+<script>
+    window.VITE_SUPABASE_URL = 'https://tu-proyecto.supabase.co'
+    window.VITE_SUPABASE_ANON_KEY = 'tu-anon-key'
+</script>
+```
+
+**Backend (`.streamlit/secrets.toml`):**
+```toml
+[supabase]
+url = "https://tu-proyecto.supabase.co"
+anon_key = "tu-anon-key"
+service_role_key = "tu-service-role-key"
+jwt_secret = "tu-jwt-secret"
+```
+
+### 🚀 Despliegue en Producción
+
+#### Frontend (Vercel)
+1. **Conectar repositorio** a Vercel
+2. **Configurar variables de entorno** (opcional, ya están en el código)
+3. **Deploy automático** en cada push a `main`
+
+#### Backend (Streamlit Cloud)
+1. **Conectar repositorio** a Streamlit Cloud
+2. **Configurar secrets** en la interfaz de Streamlit
+3. **Main file**: `streamlit_app.py`
+4. **Deploy automático** en cada push a `main`
+
+### 🧪 Desarrollo Local
+
+**Acceder a las aplicaciones:**
+- Frontend: `http://localhost:8000`
+- Backend: `http://localhost:8501`
+- Test Magic Link: `http://localhost:8000/test-magic-link.html`
 
 ## 🎨 Tecnologías Utilizadas
 
@@ -97,11 +156,22 @@ VineWatch/
 - **Pandas** - Manipulación de datos
 - **Plotly** - Visualizaciones interactivas
 - **NumPy** - Cálculos numéricos
+- **Supabase** - Autenticación y base de datos
+- **Folium** - Mapas interactivos
+- **Rasterio** - Procesamiento de datos satelitales
+- **Shapely** - Operaciones geoespaciales
+- **GeoPandas** - Análisis geoespacial avanzado
+
+### APIs Externas
+- **CheckWX** - Datos meteorológicos de aviación
+- **NOAA AviationWeather** - Fallback meteorológico
+- **Sentinel-2** - Datos satelitales (simulados)
 
 ### DevOps
 - **GitHub Actions** - CI/CD
 - **Vercel** - Hosting frontend
 - **Streamlit Cloud** - Hosting backend
+- **Supabase** - Backend-as-a-Service
 - **Git** - Control de versiones
 
 ## 📊 Funcionalidades del Dashboard
