@@ -132,16 +132,16 @@ function setupAuth() {
         console.error('❌ Botón no encontrado')
     }
 
-    // Configurar evento del formulario
-    const loginForm = document.getElementById('login-form')
-    if (loginForm) {
-        console.log('✅ Formulario encontrado, configurando evento')
-        loginForm.addEventListener('submit', function (e) {
-            e.preventDefault()
-            console.log('📝 Formulario enviado')
-            sendMagicLink()
-        })
-    }
+    // Configurar evento del formulario (comentado para evitar duplicación)
+    // const loginForm = document.getElementById('login-form')
+    // if (loginForm) {
+    //     console.log('✅ Formulario encontrado, configurando evento')
+    //     loginForm.addEventListener('submit', function (e) {
+    //         e.preventDefault()
+    //         console.log('📝 Formulario enviado')
+    //         sendMagicLink()
+    //     })
+    // }
 }
 
 // Inicializar cuando se carga la página
@@ -159,10 +159,4 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 })
 
-// También intentar configurar después de un pequeño delay por si acaso
-setTimeout(() => {
-    if (document.getElementById('send-magic-link-btn')) {
-        console.log('🔄 Reconfigurando después de delay...')
-        setupAuth()
-    }
-}, 1000)
+// Reconfiguración duplicada eliminada para evitar eventos múltiples
