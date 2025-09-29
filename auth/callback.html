@@ -1,149 +1,184 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autenticando - VineWatch</title>
-    
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Estilos personalizados -->
-    <link rel="stylesheet" href="../public/styles.css">
+    <title>VineWatch - Autenticación</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #722F37, #5a252b);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 500px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .success {
+            color: #10b981;
+        }
+
+        .error {
+            color: #ef4444;
+        }
+
+        .btn {
+            background: white;
+            color: #722F37;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background: #f3f4f6;
+        }
+    </style>
 </head>
-<body class="bg-gradient-to-br from-wine to-wine-dark min-h-screen flex items-center justify-center">
-    <div class="max-w-md mx-auto p-8">
-        <div class="bg-white rounded-2xl p-8 shadow-2xl text-center">
-            <!-- Logo -->
-            <div class="w-16 h-16 bg-wine-gradient rounded-lg flex items-center justify-center mx-auto mb-6">
-                <i class="fas fa-wine-glass-alt text-white text-2xl"></i>
-            </div>
-            
-            <!-- Título -->
-            <h1 class="text-2xl font-bold text-charcoal mb-4">Autenticando...</h1>
-            
-            <!-- Spinner -->
-            <div class="flex justify-center mb-6">
-                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-wine"></div>
-            </div>
-            
-            <!-- Mensaje -->
-            <p class="text-gray-600 mb-6">Procesando tu Magic Link, por favor esperá...</p>
-            
-            <!-- Estado -->
-            <div id="auth-status" class="hidden">
-                <div id="success-message" class="hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
-                    <i class="fas fa-check-circle mr-2"></i>
-                    ¡Autenticación exitosa! Redirigiendo...
-                </div>
-                <div id="error-message" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-                    <i class="fas fa-exclamation-circle mr-2"></i>
-                    <span id="error-text">Error en la autenticación</span>
-                </div>
-            </div>
-            
-            <!-- Botón de retorno -->
-            <div id="return-button" class="hidden">
-                <a href="/" class="inline-flex items-center px-4 py-2 bg-wine text-white rounded-lg hover:bg-wine-dark transition-colors">
-                    <i class="fas fa-arrow-left mr-2"></i>
-                    Volver al inicio
-                </a>
-            </div>
+
+<body>
+    <div class="container">
+        <div id="loading">
+            <div class="spinner"></div>
+            <h2>🔄 Procesando autenticación...</h2>
+            <p>Por favor espera mientras verificamos tu acceso.</p>
+        </div>
+
+        <div id="success" style="display: none;">
+            <h2 class="success">✅ ¡Autenticación exitosa!</h2>
+            <p>Has sido autenticado correctamente en VineWatch.</p>
+            <a href="/index.html" class="btn">Ir al Dashboard</a>
+        </div>
+
+        <div id="error" style="display: none;">
+            <h2 class="error">❌ Error de autenticación</h2>
+            <p id="error-message">Hubo un problema al procesar tu autenticación.</p>
+            <a href="/index.html" class="btn">Volver al Inicio</a>
         </div>
     </div>
 
-    <!-- Script de autenticación -->
     <script>
-        // Función para mostrar mensaje de éxito
-        function showSuccess() {
-            document.getElementById('auth-status').classList.remove('hidden')
-            document.getElementById('success-message').classList.remove('hidden')
-            document.getElementById('return-button').classList.remove('hidden')
-            
-            // Redirigir después de 2 segundos
-            setTimeout(() => {
-                window.location.href = '/'
-            }, 2000)
-        }
-        
-        // Función para mostrar error
-        function showError(message) {
-            document.getElementById('auth-status').classList.remove('hidden')
-            document.getElementById('error-message').classList.remove('hidden')
-            document.getElementById('error-text').textContent = message
-            document.getElementById('return-button').classList.remove('hidden')
-        }
-        
-        // Procesar callback de autenticación
-        async function handleAuthCallback() {
+        // Configuración de Supabase
+        const SUPABASE_URL = 'https://agesojhoiemujyokbyin.supabase.co'
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFnZXNvamhvaWVtdWp5b2tieWluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4NTczMTEsImV4cCI6MjA3NDQzMzMxMX0.03CwWaoXbWJINCE7nzLV4dwSJhvlSu9kC8S-V5VCXJo'
+
+        let supabase = null
+
+        async function initSupabase() {
             try {
-                // Obtener parámetros de la URL
-                const urlParams = new URLSearchParams(window.location.search)
-                const accessToken = urlParams.get('access_token')
-                const refreshToken = urlParams.get('refresh_token')
-                const error = urlParams.get('error')
-                const errorDescription = urlParams.get('error_description')
-                
-                if (error) {
-                    showError(errorDescription || 'Error en la autenticación')
-                    return
-                }
-                
-                if (!accessToken || !refreshToken) {
-                    showError('Token de acceso no encontrado')
-                    return
-                }
-                
-                // Cargar Supabase
                 const { createClient } = await import('https://cdn.skypack.dev/@supabase/supabase-js@2')
-                
-                // Configuración - SOLO variables de entorno
-                const supabaseUrl = window.VITE_SUPABASE_URL
-                const supabaseKey = window.VITE_SUPABASE_ANON_KEY
-                
-                if (!supabaseUrl || !supabaseKey) {
-                  showError('Variables de entorno de Supabase no configuradas')
-                  return
-                }
-                
-                const supabase = createClient(supabaseUrl, supabaseKey)
-                
-                // Establecer sesión
+                supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+                return true
+            } catch (error) {
+                console.error('Error al inicializar Supabase:', error)
+                return false
+            }
+        }
+
+        async function handleAuthCallback() {
+            const urlParams = new URLSearchParams(window.location.search)
+            const accessToken = urlParams.get('access_token')
+            const refreshToken = urlParams.get('refresh_token')
+            const error = urlParams.get('error')
+            const errorDescription = urlParams.get('error_description')
+
+            if (error) {
+                showError(`Error: ${errorDescription || error}`)
+                return
+            }
+
+            if (!accessToken || !refreshToken) {
+                showError('No se encontraron tokens de autenticación en la URL')
+                return
+            }
+
+            try {
+                // Establecer la sesión
                 const { data, error: sessionError } = await supabase.auth.setSession({
                     access_token: accessToken,
                     refresh_token: refreshToken
                 })
-                
+
                 if (sessionError) {
-                    console.error('Error al establecer sesión:', sessionError)
-                    showError('Error al establecer la sesión: ' + sessionError.message)
+                    showError(`Error al establecer sesión: ${sessionError.message}`)
                     return
                 }
-                
+
                 if (data.session) {
-                    // Guardar información de sesión en localStorage para el resto de la app
-                    localStorage.setItem('supabase_session', JSON.stringify({
-                        access_token: data.session.access_token,
-                        refresh_token: data.session.refresh_token,
-                        user: data.session.user
-                    }))
-                    
                     showSuccess()
+                    // Redirigir al dashboard después de 2 segundos
+                    setTimeout(() => {
+                        window.location.href = '/index.html'
+                    }, 2000)
                 } else {
                     showError('No se pudo establecer la sesión')
                 }
-                
+
             } catch (error) {
-                console.error('Error inesperado:', error)
-                showError('Error inesperado: ' + error.message)
+                console.error('Error en callback:', error)
+                showError(`Error inesperado: ${error.message}`)
             }
         }
-        
-        // Ejecutar cuando la página cargue
-        document.addEventListener('DOMContentLoaded', handleAuthCallback)
+
+        function showSuccess() {
+            document.getElementById('loading').style.display = 'none'
+            document.getElementById('success').style.display = 'block'
+        }
+
+        function showError(message) {
+            document.getElementById('loading').style.display = 'none'
+            document.getElementById('error').style.display = 'block'
+            document.getElementById('error-message').textContent = message
+        }
+
+        // Inicializar cuando se carga la página
+        document.addEventListener('DOMContentLoaded', async function () {
+            const initialized = await initSupabase()
+            if (initialized) {
+                await handleAuthCallback()
+            } else {
+                showError('Error al inicializar la autenticación')
+            }
+        })
     </script>
 </body>
+
 </html>

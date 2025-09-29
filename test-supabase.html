@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Supabase - VineWatch</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+        button { padding: 10px 20px; margin: 10px 0; background: #722F37; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        input { padding: 10px; margin: 10px 0; width: 100%; border: 1px solid #ccc; border-radius: 5px; }
+        .log { background: #f5f5f5; padding: 10px; margin: 10px 0; border-radius: 5px; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test de Conexión Supabase</h1>
+        
+        <div id="status" class="info">Inicializando...</div>
+        
+        <div>
+            <h3>Configuración:</h3>
+            <div id="config" class="log"></div>
+        </div>
+        
+        <div>
+            <h3>Test de Magic Link:</h3>
+            <input type="email" id="email" placeholder="Ingresa tu email" value="test@example.com">
+            <button onclick="testMagicLink()">Enviar Magic Link</button>
+            <div id="magic-link-result" class="log"></div>
+        </div>
+        
+        <div>
+            <h3>Logs:</h3>
+            <div id="logs" class="log"></div>
+        </div>
+    </div>
+
+    <script>
+        // Configuración de Supabase
+        const SUPABASE_URL = 'https://agesojhoiemujyokbyin.supabase.co'
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFnZXNvamhvaWVtdWp5b2tieWluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4NTczMTEsImV4cCI6MjA3NDQzMzMxMX0.03CwWaoXbWJINCE7nzLV4dwSJhvlSu9kC8S-V5VCXJo'
+        
+        let supabase = null
+        let logs = []
+        
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString()
+            const logMessage = `[${timestamp}] ${message}`
+            logs.push(logMessage)
+            document.getElementById('logs').textContent = logs.join('\n')
+            console.log(logMessage)
+        }
+        
+        async function initSupabase() {
+            try {
+                log('Cargando Supabase...')
+                const { createClient } = await import('https://cdn.skypack.dev/@supabase/supabase-js@2')
+                
+                log('Creando cliente Supabase...')
+                supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+                    auth: {
+                        redirectTo: window.location.origin + '/auth/callback'
+                    }
+                })
+                
+                log('Cliente Supabase creado exitosamente', 'success')
+                
+                // Mostrar configuración
+                document.getElementById('config').textContent = `URL: ${SUPABASE_URL}\nKey: ${SUPABASE_ANON_KEY.substring(0, 20)}...`
+                document.getElementById('status').textContent = '✅ Supabase inicializado correctamente'
+                document.getElementById('status').className = 'success'
+                
+                // Verificar sesión existente
+                const { data: { session }, error } = await supabase.auth.getSession()
+                if (error) {
+                    log(`Error al verificar sesión: ${error.message}`, 'error')
+                } else if (session) {
+                    log(`Sesión existente: ${session.user.email}`, 'success')
+                } else {
+                    log('No hay sesión activa', 'info')
+                }
+                
+            } catch (error) {
+                log(`Error al inicializar Supabase: ${error.message}`, 'error')
+                document.getElementById('status').textContent = '❌ Error al inicializar Supabase'
+                document.getElementById('status').className = 'error'
+            }
+        }
+        
+        async function testMagicLink() {
+            if (!supabase) {
+                log('Supabase no está inicializado', 'error')
+                return
+            }
+            
+            const email = document.getElementById('email').value
+            if (!email) {
+                log('Por favor ingresa un email', 'error')
+                return
+            }
+            
+            try {
+                log(`Enviando Magic Link a: ${email}`)
+                const { error } = await supabase.auth.signInWithOtp({
+                    email,
+                    options: {
+                        emailRedirectTo: window.location.origin + '/auth/callback'
+                    }
+                })
+                
+                if (error) {
+                    log(`Error al enviar Magic Link: ${error.message}`, 'error')
+                    document.getElementById('magic-link-result').textContent = `Error: ${error.message}`
+                    document.getElementById('magic-link-result').className = 'error'
+                } else {
+                    log('Magic Link enviado exitosamente', 'success')
+                    document.getElementById('magic-link-result').textContent = '✅ Magic Link enviado exitosamente. Revisa tu email.'
+                    document.getElementById('magic-link-result').className = 'success'
+                }
+            } catch (error) {
+                log(`Error inesperado: ${error.message}`, 'error')
+                document.getElementById('magic-link-result').textContent = `Error inesperado: ${error.message}`
+                document.getElementById('magic-link-result').className = 'error'
+            }
+        }
+        
+        // Inicializar cuando se carga la página
+        document.addEventListener('DOMContentLoaded', initSupabase)
+    </script>
+</body>
+</html>
