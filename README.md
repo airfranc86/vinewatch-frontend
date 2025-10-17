@@ -9,12 +9,6 @@ VineWatch es una plataforma integral de monitoreo vitivinícola que combina dato
 ## ✅ Estado del Proyecto
 
 ### 🎉 **COMPLETADO - Sistema en Producción**
-- ✅ **Frontend**: Desplegado en Vercel (`https://vinewatchconsulting.vercel.app`)
-- ✅ **Backend**: Desplegado en Streamlit Cloud (`https://vinewatch.streamlit.app`)
-- ✅ **Autenticación**: Magic Link con Supabase funcionando
-- ✅ **Panel Admin**: Acceso permanente configurado
-- ✅ **APIs Meteorológicas**: CheckWX + NOAA integradas
-- ✅ **Librerías Geoespaciales**: Folium, Rasterio, Shapely, GeoPandas
 
 ## 🚀 Características Principales
 
@@ -54,70 +48,6 @@ VineWatch es una plataforma integral de monitoreo vitivinícola que combina dato
 - **Tecnología**: Supabase Auth, Magic Links
 - **Características**: Autenticación sin contraseña, Panel Admin, Sesiones persistentes
 - **Flujo**: Frontend → Magic Link → Backend
-
-## 📁 Estructura del Proyecto
-
-```
-VineWatch/
-├── frontend/
-│   ├── index.html          # Página principal
-│   ├── styles.css          # Estilos personalizados
-│   └── assets/             # Recursos (imágenes, etc.)
-├── HOME.py                 # Aplicación Streamlit principal
-├── streamlit_app.py        # Punto de entrada para Streamlit Cloud
-├── requirements.txt        # Dependencias Python
-├── .streamlit/
-│   └── config.toml         # Configuración Streamlit
-├── .github/
-│   └── workflows/          # CI/CD con GitHub Actions
-├── deploy.bat             # Script de despliegue Windows
-└── README.md              # Este archivo
-```
-
-## 🛠️ Instalación y Configuración
-
-### Prerrequisitos
-- Python 3.11+
-- Node.js 18+ (para Vercel CLI)
-- Git
-- Cuenta de Supabase
-- Cuenta de Vercel
-- Cuenta de Streamlit Cloud
-
-### 🔐 Configuración de Supabase
-
-#### 1. Crear Proyecto en Supabase
-1. Ir a [supabase.com](https://supabase.com)
-2. Crear nuevo proyecto
-3. Anotar las credenciales:
-   - **Project URL**: `https://tu-proyecto.supabase.co`
-   - **Anon Key**: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`
-   - **Service Role Key**: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`
-
-#### 2. Configurar Autenticación
-1. **Authentication** → **Settings** → **URL Configuration**
-2. **Site URL**: `https://vinewatch.streamlit.app`
-3. **Redirect URLs**: `https://vinewatch.streamlit.app`
-4. **Email Templates** → **Magic Link** → Usar `{{ .ConfirmationURL }}`
-
-#### 3. Configurar Variables de Entorno
-
-**Frontend (`index.html`):**
-```html
-<script>
-    window.VITE_SUPABASE_URL = 'https://tu-proyecto.supabase.co'
-    window.VITE_SUPABASE_ANON_KEY = 'tu-anon-key'
-</script>
-```
-
-**Backend (`.streamlit/secrets.toml`):**
-```toml
-[supabase]
-url = "https://tu-proyecto.supabase.co"
-anon_key = "tu-anon-key"
-service_role_key = "tu-service-role-key"
-jwt_secret = "tu-jwt-secret"
-```
 
 ### 🚀 Despliegue en Producción
 
@@ -221,28 +151,6 @@ jwt_secret = "tu-jwt-secret"
 - **Viewport optimizado** - Escalado perfecto
 
 
-## 📈 Roadmap
-
-### Versión 1.1
-- [ ] Integración con APIs meteorológicas
-- [ ] Notificaciones push
-- [ ] Exportación de reportes PDF
-- [ ] Múltiples idiomas
-
-### Versión 1.2
-- [ ] App móvil nativa
-- [ ] Integración IoT
-- [ ] Machine Learning avanzado
-- [ ] Dashboard personalizable
-
-## 🤝 Contribución
-
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
 ## 📄 Licencia
 
 Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para detalles.
@@ -250,10 +158,10 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) par
 ## 📞 Contacto
 
 **A&J Consulting**
-- 📧 Email: ajconsulting@gmail.com
-- 📱 Teléfono: +54 9 351 123-4567
-- 🌐 Web: ajconsulting.com
+- 📧 Email: franciscoaucar@ajconsultingit.com
+-           andresnj11@ajconsultingit.com
 - 📍 Ubicación: Córdoba, Argentina
+-                Quito, Ecuador
 
 ## 🙏 Agradecimientos
 
